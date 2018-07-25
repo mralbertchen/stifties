@@ -1,0 +1,95 @@
+// less/main.less
+
+// Import Bootstrap Styles Here
+@import "bootstrap/less/bootstrap.less";
+
+@brand-primary: #bd0013;
+@brand-success: #36b37e;
+@brand-info: #1c42a0;
+@brand-warning: #ffab00;
+@brand-danger: @brand-primary;
+
+@font-family-sans-serif: "GT Walsheim Pro", Helvetica, Arial, sans-serif;
+@font-family: @font-family-sans-serif;
+@primary-color: @brand-info;
+@headings-color: @gray;
+
+@link-color: lighten(@brand-info, 15%);
+
+@process-icon-color: @brand-info;
+@process-title-color: @brand-info;
+@process-description-color: @brand-info;
+
+@finish-icon-color: @brand-success;
+@finish-title-color: @brand-success;
+@finish-description-color: @brand-success;
+@finish-tail-color: @brand-success;
+
+.table th,
+.control-label {
+  color: @headings-color;
+  font-weight: 500;
+}
+
+.rbc-event {
+  background-color: @brand-info;
+}
+
+// Import your own LESS files here
+
+.nav-pills.nav-stacked li.active a,
+.nav-pills.nav-stacked li.active a:focus {
+  border-left: 3px solid @brand-primary;
+  padding-left: 12px;
+  border-bottom-width: 0;
+  padding-bottom: 10px;
+}
+
+.nav-pills li.active a,
+.nav-pills li.active a:focus {
+  border-bottom: 3px solid @brand-primary;
+  padding-bottom: 7px;
+  background-color: transparent;
+  border-radius: 0;
+  font-weight: 600;
+}
+
+.nav-pills li a {
+  color: @text-color;
+}
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+// Stat
+
+.stat {
+  color: @headings-color;
+  display: block;
+}
+
+.big-stat {
+  font-size: 56px;
+  letter-spacing: -2px;
+}
+
+.medium-stat {
+  font-size: 30px;
+  line-height: 1.5;
+}
+
+.small-stat {
+  font-size: 20px;
+}
+
+// Overline
+
+.overline {
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 1px;
+}

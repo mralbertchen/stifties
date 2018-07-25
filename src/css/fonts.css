@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "GT Walsheim Pro";
+  src: url("gt-walsheim-pro-regular-webfont.woff2") format("woff2"),
+    url("gt-walsheim-pro-regular-webfont.woff") format("woff");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "GT Walsheim Pro";
+  src: url("gt-walsheim-pro-medium.woff2") format("woff2"),
+    url("gt-walsheim-pro-medium.woff") format("woff");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "GT Eesti Display";
+  src: url("gt-eesti-display-medium.woff2") format("woff2"),
+    url("gt-eesti-display-medium.woff") format("woff");
+  font-weight: 500;
+}
