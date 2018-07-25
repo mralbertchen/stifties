@@ -1,0 +1,31 @@
+{
+  "name": "stiftyAPI",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Stifty hackathon",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test-zrx": "node ./src/zrx-interface.js",
+    "test-contract": "node ./src/contract-interface.js",
+    "test-create": "node ./src/contract-creation.js",
+    "start": "node ./server.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "0x.js": "^0.38.6",
+    "@0xproject/connect": "^1.0.0",
+    "@0xproject/utils": "^1.0.0",
+    "bignumber.js": "^7.2.1",
+    "express": "^4.16.3",
+    "web3": "^1.0.0-beta.34"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "prettier-eslint": "^8.8.2",
+    "solc": "^0.4.24"
+  }
+}
