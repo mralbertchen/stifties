@@ -45,48 +45,48 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var constants_1 = require("./constants");
 var ora = require("ora");
-var Table = require('cli-table');
+var Table = require("cli-table");
 var EMPTY_DATA = [];
 var erc721IconRaw = [
-    '    ____  ',
-    '  .X +.    .',
-    '.Xx + -.     .',
-    'XXx++ -..      ',
-    'XXxx++--..    ',
+    "    ____  ",
+    "  .X +.    .",
+    ".Xx + -.     .",
+    "XXx++ -..      ",
+    "XXxx++--..    ",
     " XXXxx+++--  ",
     "  XXXxxx'     ",
-    '     ""     ',
+    '     ""     '
 ];
-var erc721Icon = erc721IconRaw.join('\n');
+var erc721Icon = erc721IconRaw.join("\n");
 var defaultSchema = {
     style: {
-        head: ['green']
+        head: ["green"]
     }
 };
 var borderlessSchema = __assign({}, defaultSchema, { chars: {
-        top: '',
-        'top-mid': '',
-        'top-left': '',
-        'top-right': '',
-        bottom: '',
-        'bottom-mid': '',
-        'bottom-left': '',
-        'bottom-right': '',
-        left: '',
-        'left-mid': '',
-        mid: '',
-        'mid-mid': '',
-        right: '',
-        'right-mid': '',
-        middle: ' '
-    }, style: { 'padding-left': 1, 'padding-right': 0, head: ['blue'] } });
-var dataSchema = __assign({}, borderlessSchema, { style: { 'padding-left': 1, 'padding-right': 0, head: ['yellow'] } });
+        top: "",
+        "top-mid": "",
+        "top-left": "",
+        "top-right": "",
+        bottom: "",
+        "bottom-mid": "",
+        "bottom-left": "",
+        "bottom-right": "",
+        left: "",
+        "left-mid": "",
+        mid: "",
+        "mid-mid": "",
+        right: "",
+        "right-mid": "",
+        middle: " "
+    }, style: { "padding-left": 1, "padding-right": 0, head: ["blue"] } });
+var dataSchema = __assign({}, borderlessSchema, { style: { "padding-left": 1, "padding-right": 0, head: ["yellow"] } });
 function pushAndPrint(table, tableData) {
     for (var _i = 0, tableData_1 = tableData; _i < tableData_1.length; _i++) {
         var col = tableData_1[_i];
         for (var i in col) {
             if (col[i] === constants_1.UNLIMITED_ALLOWANCE_IN_BASE_UNITS.toString()) {
-                col[i] = 'MAX_UINT';
+                col[i] = "MAX_UINT";
             }
         }
         table.push(col);
@@ -94,8 +94,8 @@ function pushAndPrint(table, tableData) {
     console.log(table.toString());
 }
 function printHeader(header) {
-    var table = new Table(__assign({}, borderlessSchema, { style: { 'padding-left': 0, 'padding-right': 0, head: ['blue'] }, head: [header] }));
-    console.log('');
+    var table = new Table(__assign({}, borderlessSchema, { style: { "padding-left": 0, "padding-right": 0, head: ["blue"] }, head: [header] }));
+    console.log("");
     pushAndPrint(table, EMPTY_DATA);
 }
 exports.printHeader = printHeader;
@@ -105,7 +105,7 @@ function printScenario(header) {
 }
 exports.printScenario = printScenario;
 function printData(header, tableData) {
-    var table = new Table(__assign({}, dataSchema, { head: [header, ''] }));
+    var table = new Table(__assign({}, dataSchema, { head: [header, ""] }));
     pushAndPrint(table, tableData);
 }
 exports.printData = printData;
@@ -150,8 +150,8 @@ function fetchAndPrintBalancesAsync(accountDetails, contracts) {
                     _i++;
                     return [3 /*break*/, 1];
                 case 8:
-                    table = new Table(__assign({}, dataSchema, { head: ['Token'].concat(flattenedAccounts) }));
-                    printHeader('Balances');
+                    table = new Table(__assign({}, dataSchema, { head: ["Token"].concat(flattenedAccounts) }));
+                    printHeader("Balances");
                     pushAndPrint(table, flattenedBalances);
                     return [2 /*return*/];
             }
@@ -176,12 +176,12 @@ function fetchAndPrintERC721Owner(accountDetails, erc721Contract, tokenId) {
                     owner = _a.sent();
                     for (account in accountDetails) {
                         address = accountDetails[account];
-                        balance = owner === address ? erc721Icon : '';
+                        balance = owner === address ? erc721Icon : "";
                         balances.push(balance);
                     }
                     flattenedBalances.push(balances);
-                    table = new Table(__assign({}, dataSchema, { head: ['Token'].concat(flattenedAccounts) }));
-                    printHeader('ERC721 Owner');
+                    table = new Table(__assign({}, dataSchema, { head: ["Token"].concat(flattenedAccounts) }));
+                    printHeader("ERC721 Owner");
                     pushAndPrint(table, flattenedBalances);
                     return [2 /*return*/];
             }
@@ -189,6 +189,20 @@ function fetchAndPrintERC721Owner(accountDetails, erc721Contract, tokenId) {
     });
 }
 exports.fetchAndPrintERC721Owner = fetchAndPrintERC721Owner;
+function findERC721Owner(erc721Contract, tokenId) {
+    return __awaiter(this, void 0, void 0, function () {
+        var owner;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, erc721Contract.ownerOf.callAsync(tokenId)];
+                case 1:
+                    owner = _a.sent();
+                    return [2 /*return*/, owner];
+            }
+        });
+    });
+}
+exports.findERC721Owner = findERC721Owner;
 function fetchAndPrintAllowancesAsync(accountDetails, contracts, spender) {
     return __awaiter(this, void 0, void 0, function () {
         var flattenedAllowances, flattenedAccounts, _i, contracts_2, token, tokenSymbol, allowances, _a, _b, _c, account, address, balance, table;
@@ -230,8 +244,8 @@ function fetchAndPrintAllowancesAsync(accountDetails, contracts, spender) {
                     _i++;
                     return [3 /*break*/, 1];
                 case 8:
-                    table = new Table(__assign({}, dataSchema, { head: ['Token'].concat(flattenedAccounts) }));
-                    printHeader('Allowances');
+                    table = new Table(__assign({}, dataSchema, { head: ["Token"].concat(flattenedAccounts) }));
+                    printHeader("Allowances");
                     pushAndPrint(table, flattenedAllowances);
                     return [2 /*return*/];
             }
@@ -246,7 +260,7 @@ function awaitTransactionMinedSpinnerAsync(message, txHash, zeroEx) {
             switch (_a.label) {
                 case 0:
                     spinner = ora(message + ": " + txHash).start();
-                    if (!spinner['isSpinning']) {
+                    if (!spinner["isSpinning"]) {
                         console.log(message, txHash);
                     }
                     _a.label = 1;
@@ -269,21 +283,24 @@ function awaitTransactionMinedSpinnerAsync(message, txHash, zeroEx) {
 exports.awaitTransactionMinedSpinnerAsync = awaitTransactionMinedSpinnerAsync;
 function printTransaction(header, txReceipt, data, events) {
     if (data === void 0) { data = []; }
-    if (events === void 0) { events = ['Fill', 'Transfer', 'CancelUpTo', 'Cancel']; }
-    printHeader('Transaction');
-    var status = txReceipt.status == 1 ? 'Success' : 'Failure';
-    var headerColor = txReceipt.status == 1 ? 'green' : 'red';
+    if (events === void 0) { events = ["Fill", "Transfer", "CancelUpTo", "Cancel"]; }
+    printHeader("Transaction");
+    var status = txReceipt.status == 1 ? "Success" : "Failure";
+    var headerColor = txReceipt.status == 1 ? "green" : "red";
     var table = new Table(__assign({}, defaultSchema, { head: [header, txReceipt.transactionHash], style: __assign({}, defaultSchema.style, { head: [headerColor] }) }));
-    var tableData = data.concat([['gasUsed', txReceipt.gasUsed.toString()], ['status', status]]);
+    var tableData = data.concat([
+        ["gasUsed", txReceipt.gasUsed.toString()],
+        ["status", status]
+    ]);
     pushAndPrint(table, tableData);
     if (txReceipt.logs.length > 0) {
-        printHeader('Logs');
+        printHeader("Logs");
         for (var _i = 0, _a = txReceipt.logs; _i < _a.length; _i++) {
             var log = _a[_i];
             var event = log.event;
             if (event && events.includes(event)) {
                 var args = log.args;
-                var data_1 = [['contract', log.address]].concat(Object.entries(args));
+                var data_1 = [["contract", log.address]].concat(Object.entries(args));
                 printData("" + event, data_1);
             }
         }
@@ -298,7 +315,7 @@ var OrderStatus;
     OrderStatus[OrderStatus["FILLABLE"] = 3] = "FILLABLE";
     OrderStatus[OrderStatus["EXPIRED"] = 4] = "EXPIRED";
     OrderStatus[OrderStatus["FULLY_FILLED"] = 5] = "FULLY_FILLED";
-    OrderStatus[OrderStatus["CANCELLED"] = 6] = "CANCELLED";
+    OrderStatus[OrderStatus["CANCELLED"] = 6] = "CANCELLED"; // Order has been cancelled
 })(OrderStatus || (OrderStatus = {}));
 function printOrderInfos(orderInfos) {
     var data = [];
@@ -307,6 +324,6 @@ function printOrderInfos(orderInfos) {
         var orderStatus = OrderStatus[orderInfo.orderStatus];
         data.push([order, orderStatus]);
     }
-    printData('Order Info', data);
+    printData("Order Info", data);
 }
 exports.printOrderInfos = printOrderInfos;

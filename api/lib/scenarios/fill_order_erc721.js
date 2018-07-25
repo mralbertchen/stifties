@@ -59,17 +59,17 @@ function scenario() {
                 case 0:
                     // In this scenario, the maker creates and signs an order for selling an ERC721 token for WETH.
                     // The taker takes this order and fills it via the 0x Exchange contract.
-                    print_utils_1.printScenario('Fill Order ERC721');
+                    print_utils_1.printScenario("Fill Order ERC721");
                     dummyERC721TokenContract = contracts_1.dummyERC721TokenContracts[0];
                     if (!dummyERC721TokenContract) {
-                        console.log('No Dummy ERC721 Tokens deployed on this network');
+                        console.log("No Dummy ERC721 Tokens deployed on this network");
                         return [2 /*return*/];
                     }
                     zeroEx = new _0x_js_1.ZeroEx(contracts_1.providerEngine, { networkId: constants_1.NETWORK_ID });
                     return [4 /*yield*/, zeroEx.getAvailableAddressesAsync()];
                 case 1:
                     _a = _b.sent(), maker = _a[0], taker = _a[1];
-                    print_utils_1.printData('Accounts', [['Maker', maker], ['Taker', taker]]);
+                    print_utils_1.printData("Accounts", [["Maker", maker], ["Taker", taker]]);
                     makerAssetAmount = new utils_1.BigNumber(1);
                     takerAssetAmount = new utils_1.BigNumber(10);
                     tokenId = _0x_js_1.ZeroEx.generatePseudoRandomSalt();
@@ -79,32 +79,32 @@ function scenario() {
                     return [4 /*yield*/, dummyERC721TokenContract.mint.sendTransactionAsync(maker, tokenId, { from: maker })];
                 case 2:
                     mintTxHash = _b.sent();
-                    return [4 /*yield*/, print_utils_1.awaitTransactionMinedSpinnerAsync('Mint ERC721 Token', mintTxHash, zeroEx)];
+                    return [4 /*yield*/, print_utils_1.awaitTransactionMinedSpinnerAsync("Mint ERC721 Token", mintTxHash, zeroEx)];
                 case 3:
                     txReceipt = _b.sent();
                     return [4 /*yield*/, zeroEx.erc721Token.setProxyApprovalForAllAsync(dummyERC721TokenContract.address, maker, true)];
                 case 4:
                     makerERC721ApprovalTxHash = _b.sent();
-                    return [4 /*yield*/, print_utils_1.awaitTransactionMinedSpinnerAsync('Maker ERC721 Approval', makerERC721ApprovalTxHash, zeroEx)];
+                    return [4 /*yield*/, print_utils_1.awaitTransactionMinedSpinnerAsync("Maker ERC721 Approval", makerERC721ApprovalTxHash, zeroEx)];
                 case 5:
                     txReceipt = _b.sent();
                     return [4 /*yield*/, zeroEx.erc20Token.setUnlimitedProxyAllowanceAsync(etherTokenAddress, taker)];
                 case 6:
                     takerWETHApprovalTxHash = _b.sent();
-                    return [4 /*yield*/, print_utils_1.awaitTransactionMinedSpinnerAsync('Taker WETH Approval', takerWETHApprovalTxHash, zeroEx)];
+                    return [4 /*yield*/, print_utils_1.awaitTransactionMinedSpinnerAsync("Taker WETH Approval", takerWETHApprovalTxHash, zeroEx)];
                 case 7:
                     txReceipt = _b.sent();
                     return [4 /*yield*/, zeroEx.etherToken.depositAsync(etherTokenAddress, takerAssetAmount, taker)];
                 case 8:
                     takerWETHDepositTxHash = _b.sent();
-                    return [4 /*yield*/, print_utils_1.awaitTransactionMinedSpinnerAsync('Taker WETH Deposit', takerWETHDepositTxHash, zeroEx)];
+                    return [4 /*yield*/, print_utils_1.awaitTransactionMinedSpinnerAsync("Taker WETH Deposit", takerWETHDepositTxHash, zeroEx)];
                 case 9:
                     txReceipt = _b.sent();
-                    print_utils_1.printData('Setup', [
-                        ['Mint ERC721', mintTxHash],
-                        ['Maker ERC721 Approval', makerERC721ApprovalTxHash],
-                        ['Taker WETH Approval', takerWETHApprovalTxHash],
-                        ['Taker WETH Deposit', takerWETHDepositTxHash],
+                    print_utils_1.printData("Setup", [
+                        ["Mint ERC721", mintTxHash],
+                        ["Maker ERC721 Approval", makerERC721ApprovalTxHash],
+                        ["Taker WETH Approval", takerWETHApprovalTxHash],
+                        ["Taker WETH Deposit", takerWETHDepositTxHash]
                     ]);
                     tenMinutes = 10 * 60 * 1000;
                     randomExpiration = new utils_1.BigNumber(Date.now() + tenMinutes);
@@ -124,12 +124,15 @@ function scenario() {
                         makerFee: constants_1.ZERO,
                         takerFee: constants_1.ZERO
                     };
-                    print_utils_1.printData('Order', Object.entries(order));
+                    print_utils_1.printData("Order", Object.entries(order));
                     erc20ProxyAddress = zeroEx.erc20Proxy.getContractAddress();
                     return [4 /*yield*/, print_utils_1.fetchAndPrintAllowancesAsync({ maker: maker, taker: taker }, [contracts_1.etherTokenContract], erc20ProxyAddress)];
                 case 10:
                     _b.sent();
-                    return [4 /*yield*/, print_utils_1.fetchAndPrintBalancesAsync({ maker: maker, taker: taker }, [dummyERC721TokenContract, contracts_1.etherTokenContract])];
+                    return [4 /*yield*/, print_utils_1.fetchAndPrintBalancesAsync({ maker: maker, taker: taker }, [
+                            dummyERC721TokenContract,
+                            contracts_1.etherTokenContract
+                        ])];
                 case 11:
                     _b.sent();
                     return [4 /*yield*/, print_utils_1.fetchAndPrintERC721Owner({ maker: maker, taker: taker }, dummyERC721TokenContract, tokenId)];
@@ -148,12 +151,15 @@ function scenario() {
                 case 14:
                     // Fill the Order via 0x.js Exchange contract
                     txHash = _b.sent();
-                    return [4 /*yield*/, print_utils_1.awaitTransactionMinedSpinnerAsync('fillOrder', txHash, zeroEx)];
+                    return [4 /*yield*/, print_utils_1.awaitTransactionMinedSpinnerAsync("fillOrder", txHash, zeroEx)];
                 case 15:
                     txReceipt = _b.sent();
-                    print_utils_1.printTransaction('fillOrder', txReceipt, [['orderHash', orderHashHex]]);
+                    print_utils_1.printTransaction("fillOrder", txReceipt, [["orderHash", orderHashHex]]);
                     // Print the Balances
-                    return [4 /*yield*/, print_utils_1.fetchAndPrintBalancesAsync({ maker: maker, taker: taker }, [dummyERC721TokenContract, contracts_1.etherTokenContract])];
+                    return [4 /*yield*/, print_utils_1.fetchAndPrintBalancesAsync({ maker: maker, taker: taker }, [
+                            dummyERC721TokenContract,
+                            contracts_1.etherTokenContract
+                        ])];
                 case 16:
                     // Print the Balances
                     _b.sent();

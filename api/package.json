@@ -2,13 +2,13 @@
   "name": "stifties-api",
   "private": true,
   "version": "0.0.1",
-  "description": "Nifty hackathon",
+  "description": "Nifty Hackathon - Stifties Project - API",
   "main": "server.js",
   "engines": {
     "node": ">=6.12"
   },
   "scripts": {
-    "start": "node ./server.js",
+    "start": "cross-env yarn run build && node ./lib/server.js",
     "lint": "tslint --project . --exclude **/src/contract_wrappers/**/*",
     "watch_without_deps": "cross-env yarn pre_build && tsc -w",
     "build": "cross-env yarn pre_build && tsc",

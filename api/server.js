@@ -1,5 +1,5 @@
-const bodyParser = require("body-parser");
-const express = require("express");
+const bodyParser = require("../../../Library/Caches/typescript/2.9/node_modules/@types/body-parserbrary/Caches/typescript/2.9/node_modules/@types/body-parserbrary/Caches/typescript/2.9/node_modules/@types/body-parserbrary/Caches/typescript/2.9/node_modules/@types/body-parser");
+const express = require("../../../Library/Caches/typescript/2.9/node_modules/@types/express./Library/Caches/typescript/2.9/node_modules/@types/express./Library/Caches/typescript/2.9/node_modules/@types/express./Library/Caches/typescript/2.9/node_modules/@types/express");
 const http = require("http");
 
 /*
