@@ -21,7 +21,9 @@ class Message extends React.Component {
         className={`${message.userIsSender && "pull-right"} clearfix mb-3`}
       >
         <Panel
-          className={`${message.userIsSender || "panel-left"} clearfix mb-3`}
+          className={`${
+            message.userIsSender ? "panel-right" : "panel-left"
+          } clearfix mb-3`}
         >
           <Panel.Body>
             <div>{message.content}</div>

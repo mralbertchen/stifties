@@ -68,15 +68,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Grid
-        // style={{
-        //   display: "flex",
-        //   flexDirection: "column",
-        //   justifyContent: "space-between",
-        //   height: "100%",
-        //   flexGrow: 1
-        // }}
-        >
+        <Grid>
           <div className="text-center" style={{ padding: "20px 0" }}>
             STIFTIES
             {/* {JSON.stringify(window.web3.eth.accounts[0])} */}
@@ -116,18 +108,18 @@ class App extends Component {
               handleClose={this.handleClose}
               tokens={this.state.tokens}
             />
-            <Button bsStyle="success">
-              <Send
-                size={16}
-                onClick={() =>
-                  this.props.createMessage({
-                    userIsSender: true,
-                    time: new Date(),
-                    content: this.state.messageText,
-                    type: "text"
-                  })
-                }
-              />
+            <Button
+              bsStyle="success"
+              onClick={() =>
+                this.props.createMessage({
+                  userIsSender: true,
+                  time: new Date(),
+                  content: this.state.messageText,
+                  type: "text"
+                })
+              }
+            >
+              <Send size={16} />
             </Button>
           </div>
         </div>
