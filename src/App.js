@@ -18,8 +18,15 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <Grid>
+      <Grid
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "space-between",
+          height: "100%"
+        }}
+      >
+        <div>
           <Message
             message={{
               userIsSender: false,
@@ -29,21 +36,27 @@ class App extends Component {
             }}
           />
           <Clearfix />
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <FormControl />
-            <Button onClick={() => this.setState({ showStickersModal: true })}>
-              😀
-            </Button>
-            <YourStickersModal
-              show={this.state.showStickersModal}
-              handleClose={this.handleClose}
-            />
-            <Button bsStyle="success">
-              <Send size={16} />
-            </Button>
-          </div>
-        </Grid>
-      </div>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignSelf: "end"
+          }}
+        >
+          <FormControl />
+          <Button onClick={() => this.setState({ showStickersModal: true })}>
+            😀
+          </Button>
+          <YourStickersModal
+            show={this.state.showStickersModal}
+            handleClose={this.handleClose}
+          />
+          <Button bsStyle="success">
+            <Send size={16} />
+          </Button>
+        </div>
+      </Grid>
     );
   }
 }

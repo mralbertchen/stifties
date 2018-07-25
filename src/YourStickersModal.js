@@ -52,7 +52,9 @@ const YourStickersModal = class extends React.Component {
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button>Get more stickers</Button>
+          <Button onClick={() => this.setState({ showStickersModal: true })}>
+            Get more stickers
+          </Button>
           <StickersMarketplaceModal
             show={this.state.showStickersModal}
             handleClose={this.handleClose}
