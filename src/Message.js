@@ -1,6 +1,6 @@
 import moment from "moment";
 import React from "react";
-import { Panel } from "react-bootstrap";
+import { Image, Panel } from "react-bootstrap";
 
 const styles = {
   message: {
@@ -8,21 +8,32 @@ const styles = {
   }
 };
 
-const Message = ({ message }) => {
-  return (
-    <Panel
-      style={styles.message}
-      bsStyle={message.userIsSender ? "default" : "success"}
-      className={`${message.userIsSender || "pull-right"} clearfix mb-3`}
-    >
-      <Panel.Body>
-        <div className="mb-1">{message.content}</div>
+class Message extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const { message } = this.props;
+    return (
+      <div
+        style={styles.message}
+        className={`${message.userIsSender && "pull-right"} clearfix mb-3`}
+      >
+        <Panel
+          className={`${message.userIsSender || "panel-left"} clearfix mb-3`}
+        >
+          <Panel.Body>
+            <div>{message.content}</div>
+            <Image src={message.imageUrl} responsive />
+          </Panel.Body>
+        </Panel>
         <div className="text-muted">
           {moment(message.time).format("DD MMMM, H:m")}
         </div>
-      </Panel.Body>
-    </Panel>
-  );
-};
+      </div>
+    );
+  }
+}
 
 export default Message;

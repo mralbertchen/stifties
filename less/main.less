@@ -3,8 +3,8 @@
 // Import Bootstrap Styles Here
 @import "bootstrap/less/bootstrap.less";
 
-@brand-primary: #bd0013;
-@brand-success: #36b37e;
+@brand-primary: #5f6fed;
+@brand-success: #5f6fed;
 @brand-info: #1c42a0;
 @brand-warning: #ffab00;
 @brand-danger: @brand-primary;
@@ -92,4 +92,17 @@
   text-transform: uppercase;
   font-size: 14px;
   letter-spacing: 1px;
+}
+
+.panel {
+  border-width: 0;
+  box-shadow: 0 7.5px 15px lighten(@gray-light, 45%);
+}
+
+.panel-left {
+  border-radius: 20px 20px 20px 5px;
+}
+
+.panel-dark {
+  background-color: @brand-primary;
 }
