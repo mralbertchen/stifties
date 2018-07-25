@@ -151,7 +151,7 @@ function scenario() {
                     signedOrder = __assign({}, order, { signature: signature });
                     console.log("order", order);
                     console.log("signedOrder", signedOrder);
-                    return [4 /*yield*/, zeroEx.exchange.fillOrderAsync(signedOrder, takerAssetAmount, taker, { gasLimit: constants_1.TX_DEFAULTS.gas })];
+                    return [4 /*yield*/, zeroEx.exchange.fillOrderNoThrowAsync(signedOrder, takerAssetAmount, taker, { gasLimit: constants_1.TX_DEFAULTS.gas })];
                 case 14:
                     // Fill the Order via 0x.js Exchange contract
                     txHash = _b.sent();

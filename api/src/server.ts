@@ -35,9 +35,6 @@ import { createOrder } from "./features/create_order";
 import { fillOrder } from "./features/fill_order";
 
 const dummyERC721TokenContract = dummyERC721TokenContracts[0];
-if (!dummyERC721TokenContract) {
-  throw "No Dummy ERC721 Tokens deployed on this network";
-}
 
 const orders = []; // Global state, for this hackathon we will store orders in memory
 

@@ -47,9 +47,6 @@ var create_tokens_1 = require("./features/create_tokens");
 var create_order_1 = require("./features/create_order");
 var fill_order_1 = require("./features/fill_order");
 var dummyERC721TokenContract = contracts_1.dummyERC721TokenContracts[0];
-if (!dummyERC721TokenContract) {
-    throw "No Dummy ERC721 Tokens deployed on this network";
-}
 var orders = []; // Global state, for this hackathon we will store orders in memory
 // Generate orders
 create_tokens_1.createTokens(constants_1.stickers.length).then(function (tokenList) {

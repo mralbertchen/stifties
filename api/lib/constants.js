@@ -7,7 +7,9 @@ exports.GANACHE_TX_DEFAULTS = { gas: 400000 };
 exports.KOVAN_NETWORK_ID = 42;
 exports.KOVAN_RPC = "https://kovan.infura.io/";
 exports.KOVAN_TX_DEFAULTS = { gas: 400000 };
-exports.MNEMONIC = "concert load couple harbor equip island argue ramp clarify fence smart topic";
+exports.MNEMONIC = process.env.NODE_ENV === "kovan"
+    ? "topic concert ramp load argue harbor equip island couple clarify fence smart"
+    : "concert load couple harbor equip island argue ramp clarify fence smart topic";
 exports.BASE_DERIVATION_PATH = "44'/60'/0'/0";
 exports.UNLIMITED_ALLOWANCE_IN_BASE_UNITS = new utils_1.BigNumber(2)
     .pow(256)
@@ -15,9 +17,9 @@ exports.UNLIMITED_ALLOWANCE_IN_BASE_UNITS = new utils_1.BigNumber(2)
 exports.NULL_ADDRESS = "0x0000000000000000000000000000000000000000";
 exports.ZERO = new utils_1.BigNumber(0);
 // Ganache
-exports.RPC_URL = exports.GANACHE_RPC;
-exports.NETWORK_ID = exports.GANACHE_NETWORK_ID;
-exports.TX_DEFAULTS = exports.GANACHE_TX_DEFAULTS;
+exports.RPC_URL = process.env.NODE_ENV === "kovan" ? exports.KOVAN_RPC : exports.GANACHE_RPC;
+exports.NETWORK_ID = process.env.NODE_ENV === "kovan" ? exports.KOVAN_NETWORK_ID : exports.GANACHE_NETWORK_ID;
+exports.TX_DEFAULTS = process.env.NODE_ENV === "kovan" ? exports.KOVAN_TX_DEFAULTS : exports.GANACHE_TX_DEFAULTS;
 // Kovan
 // export const RPC_URL = KOVAN_RPC;
 // export const NETWORK_ID: number = KOVAN_NETWORK_ID;

@@ -49,11 +49,11 @@ var utils_1 = require("@0xproject/utils");
 var constants_1 = require("../constants");
 var contracts_1 = require("../contracts");
 var dummyERC721TokenContract = contracts_1.dummyERC721TokenContracts[0];
-if (!dummyERC721TokenContract) {
-    throw "No Dummy ERC721 Tokens deployed on this network";
-}
+var nftContractAddress = process.env.NODE_ENV === "kovan"
+    ? "0xE3E62025Ca7f71e1C3C12bf1eb2bc15fF5806647"
+    : dummyERC721TokenContract.address;
 var zeroEx = new _0x_js_1.ZeroEx(contracts_1.providerEngine, { networkId: constants_1.NETWORK_ID });
-var expirationTimeSeconds = new utils_1.BigNumber(168 * 60 * 60 * 1000);
+var expirationTimeSeconds = new utils_1.BigNumber(Date.now() + 168 * 60 * 60 * 1000);
 var exchangeAddress = zeroEx.exchange.getContractAddress();
 // the amount the maker is selling in maker asset (1 ERC721 Token)
 var makerAssetAmount = new utils_1.BigNumber(1);

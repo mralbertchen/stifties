@@ -160,7 +160,7 @@ export async function scenario() {
   console.log("order", order);
   console.log("signedOrder", signedOrder);
   // Fill the Order via 0x.js Exchange contract
-  txHash = await zeroEx.exchange.fillOrderAsync(
+  txHash = await zeroEx.exchange.fillOrderNoThrowAsync(
     signedOrder,
     takerAssetAmount,
     taker,

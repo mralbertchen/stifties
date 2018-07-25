@@ -18,15 +18,18 @@ import {
   printTransaction
 } from "../print_utils";
 import { signingUtils } from "../signing_utils";
+import config from "node-config";
 
 const dummyERC721TokenContract = dummyERC721TokenContracts[0];
-if (!dummyERC721TokenContract) {
-  throw "No Dummy ERC721 Tokens deployed on this network";
-}
+
+const nftContractAddress =
+  process.env.NODE_ENV === "kovan"
+    ? "0xE3E62025Ca7f71e1C3C12bf1eb2bc15fF5806647"
+    : dummyERC721TokenContract.address;
 
 const zeroEx = new ZeroEx(providerEngine, { networkId: NETWORK_ID });
 
-const expirationTimeSeconds = new BigNumber(168 * 60 * 60 * 1000);
+const expirationTimeSeconds = new BigNumber(Date.now() + 168 * 60 * 60 * 1000);
 const exchangeAddress = zeroEx.exchange.getContractAddress();
 
 // the amount the maker is selling in maker asset (1 ERC721 Token)

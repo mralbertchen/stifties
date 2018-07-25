@@ -50,17 +50,18 @@
     "@0xproject/utils": "^1.0.0",
     "@0xproject/web3-wrapper": "^1.0.0",
     "@types/mocha": "^5.2.2",
+    "bignumber.js": "^7.2.1",
     "cli-table": "^0.3.1",
     "copyfiles": "^2.0.0",
     "ethereum-types": "^0.0.2",
     "ethers": "3.0.22",
+    "express": "^4.16.3",
     "lodash": "^4.17.4",
+    "node-config": "^0.0.2",
     "ora": "^2.1.0",
     "run-s": "^0.0.0",
-    "web3-provider-engine": "^14.0.4",
-    "bignumber.js": "^7.2.1",
-    "express": "^4.16.3",
-    "web3": "^1.0.0-beta.34"
+    "web3": "^1.0.0-beta.34",
+    "web3-provider-engine": "^14.0.4"
   },
   "devDependencies": {
     "@0xproject/dev-utils": "^1.0.0",
@@ -69,15 +70,15 @@
     "cross-env": "^5.1.4",
     "dirty-chai": "^2.0.1",
     "download-cli": "^1.0.5",
-    "ganache-cli": "^6.1.6",
-    "make-promises-safe": "^1.1.0",
-    "npm-run-all": "^4.1.2",
-    "shx": "^0.2.2",
-    "tslint": "5.8.0",
-    "typescript": "2.7.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
-    "prettier-eslint": "^8.8.2"
+    "ganache-cli": "^6.1.6",
+    "make-promises-safe": "^1.1.0",
+    "npm-run-all": "^4.1.2",
+    "prettier-eslint": "^8.8.2",
+    "shx": "^0.2.2",
+    "tslint": "5.8.0",
+    "typescript": "2.7.1"
   }
 }

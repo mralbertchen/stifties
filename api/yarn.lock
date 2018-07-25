@@ -474,7 +474,7 @@ async-eventemitter@^0.2.2:
   dependencies:
     async "^2.4.0"
 
-"async-eventemitter@github:ahultgren/async-eventemitter#fa06e39e56786ba541c180061dbf2c0a5bbf951c":
+async-eventemitter@ahultgren/async-eventemitter#fa06e39e56786ba541c180061dbf2c0a5bbf951c:
   version "0.2.3"
   resolved "https://codeload.github.com/ahultgren/async-eventemitter/tar.gz/fa06e39e56786ba541c180061dbf2c0a5bbf951c"
   dependencies:
@@ -2814,7 +2814,7 @@ ganache-cli@^6.1.6:
   dependencies:
     source-map-support "^0.5.3"
 
-"ganache-core@github:0xProject/ganache-core":
+ganache-core@0xProject/ganache-core:
   version "2.1.2"
   resolved "https://codeload.github.com/0xProject/ganache-core/tar.gz/88ce33a4c33a5737ffb84af9bb8affaa4e8bf3a5"
   dependencies:
@@ -3938,6 +3938,10 @@ node-abi@^2.2.0:
   resolved "https://registry.yarnpkg.com/node-abi/-/node-abi-2.4.3.tgz#43666b7b17e57863e572409edbb82115ac7af28b"
   dependencies:
     semver "^5.4.1"
+
+node-config@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/node-config/-/node-config-0.0.2.tgz#46b40dcfbcb0e66d46a15f81b54eac2130fb150d"
 
 node-fetch@2.1.2:
   version "2.1.2"
