@@ -11,6 +11,15 @@
       "program": "${workspaceFolder}/lib/server.js",
       "runtimeExecutable":
         "/Users/albertchen/.nvm/versions/node/v10.6.0/bin/node"
+    },
+
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "ERC721 launch",
+      "program": "${workspaceFolder}/lib/scenarios/fill_order_erc721.js",
+      "runtimeExecutable":
+        "/Users/albertchen/.nvm/versions/node/v10.6.0/bin/node"
     }
   ]
 }

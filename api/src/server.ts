@@ -7,7 +7,13 @@ import { ZeroEx } from "0x.js";
 import { assetDataUtils, MessagePrefixType } from "@0xproject/order-utils";
 import { Order } from "@0xproject/types";
 import { BigNumber } from "@0xproject/utils";
-import { NETWORK_ID, NULL_ADDRESS, TX_DEFAULTS, ZERO } from "./constants";
+import {
+  NETWORK_ID,
+  NULL_ADDRESS,
+  TX_DEFAULTS,
+  ZERO,
+  stickers
+} from "./constants";
 import {
   dummyERC721TokenContracts,
   providerEngine,
@@ -33,81 +39,10 @@ if (!dummyERC721TokenContract) {
   throw "No Dummy ERC721 Tokens deployed on this network";
 }
 
-const stickers = [
-  {
-    id: 0,
-    name: "Blacksmith",
-    uri:
-      "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FBlockstudios_Blacksmith.jpg?1532520144524"
-  },
-  {
-    id: 1,
-    name: "Hokkaido Melon",
-    uri:
-      "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FBlockstudios_HokkaidoMelon.jpg?1532520144781"
-  },
-
-  {
-    id: 2,
-    name: "Optician",
-    uri:
-      "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FBlockstudios_Optician_FanArt.jpg?1532520145184"
-  },
-
-  {
-    id: 3,
-    name: "Otterman",
-    uri:
-      "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FBlockstudios_OtterMan.jpg?1532520145239"
-  },
-
-  {
-    id: 4,
-    name: "CoinZuki",
-    uri:
-      "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FKnownOrigin_CoinZuki.jpg?1532520234241"
-  },
-
-  {
-    id: 5,
-    name: "Like a Human 1",
-    uri:
-      "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FKnownOrigin_Like%20a%20Human%201.jpg?1532520234767"
-  },
-
-  {
-    id: 6,
-    name: "Melt",
-    uri:
-      "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FKnownOrigin_Melt.jpg?1532520235200"
-  },
-
-  {
-    id: 7,
-    name: "Tempo",
-    uri:
-      "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FKnownOrigin_Tempo.jpg?1532520236125"
-  },
-
-  {
-    id: 8,
-    name: "Cells",
-    uri:
-      "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FKnownOrigin_Cells.jpg?1532520236416"
-  },
-
-  {
-    id: 9,
-    name: "Pebbles",
-    uri:
-      "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FKnownOrigin_Pebbles.jpg?1532520240265"
-  }
-]; // bootstrapping with 10 stickers
-
 const orders = []; // Global state, for this hackathon we will store orders in memory
 
 // Generate orders
-createTokens().then(tokenList => {
+createTokens(stickers.length).then(tokenList => {
   for (let i = 0; i < stickers.length; i++) {
     stickers[i].id = tokenList[i];
     createOrder(
@@ -170,13 +105,14 @@ function renderOrderBook() {
 async function renderPortfolio(address) {
   const owners = [];
   for (let i = 0; i < stickers.length; i++) {
-    console.log(stickers[i].id);
     let temp = await findERC721Owner(
       dummyERC721TokenContract,
       new BigNumber(stickers[i].id)
     );
-    owners.push(temp);
+    owners.push({ owner: temp, tokenId: stickers[i].id });
   }
-
-  console.log(owners);
+  const portfolio = owners
+    .map(element => (element.owner === address ? element.tokenId : undefined))
+    .filter(obj => obj);
+  return stickers.filter(obj => portfolio.includes(obj.id));
 }

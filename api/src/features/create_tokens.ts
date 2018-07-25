@@ -19,7 +19,7 @@ import {
 } from "../print_utils";
 import { signingUtils } from "../signing_utils";
 
-export async function createTokens() {
+export async function createTokens(qty = 10) {
   // In this scenario, the maker creates and signs an order for selling an ERC721 token for WETH.
   // The taker takes this order and fills it via the 0x Exchange contract.
   printScenario("Create ERC721");
@@ -32,23 +32,19 @@ export async function createTokens() {
   const [maker, taker] = await zeroEx.getAvailableAddressesAsync();
   printData("Accounts", [["Maker", maker], ["Taker", taker]]);
 
-  const tokenId = ZeroEx.generatePseudoRandomSalt();
-
   const tokenIdList = [];
 
-  // Mint 10 new ERC721 tokens
-
-  for (let i = 0; i < 10; i++) {
-    let tempNum = tokenId.add(i);
+  for (let i = 0; i < qty; i++) {
+    let tokenId = ZeroEx.generatePseudoRandomSalt();
     let temp = await dummyERC721TokenContract.mint.sendTransactionAsync(
       maker,
-      tempNum,
+      tokenId,
       {
         from: maker
       }
     );
-    console.log(`Creating token number ${temp}`);
-    tokenIdList.push(temp);
+    console.log(`Creating token id ${tokenId.toString(16)}, tx: ${temp}`);
+    tokenIdList.push(tokenId);
   }
 
   return tokenIdList;

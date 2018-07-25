@@ -40,6 +40,7 @@ var bodyParser = require("body-parser");
 var express = require("express");
 var http = require("http");
 var utils_1 = require("@0xproject/utils");
+var constants_1 = require("./constants");
 var contracts_1 = require("./contracts");
 var print_utils_1 = require("./print_utils");
 var create_tokens_1 = require("./features/create_tokens");
@@ -49,64 +50,12 @@ var dummyERC721TokenContract = contracts_1.dummyERC721TokenContracts[0];
 if (!dummyERC721TokenContract) {
     throw "No Dummy ERC721 Tokens deployed on this network";
 }
-var stickers = [
-    {
-        id: 0,
-        name: "Blacksmith",
-        uri: "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FBlockstudios_Blacksmith.jpg?1532520144524"
-    },
-    {
-        id: 1,
-        name: "Hokkaido Melon",
-        uri: "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FBlockstudios_HokkaidoMelon.jpg?1532520144781"
-    },
-    {
-        id: 2,
-        name: "Optician",
-        uri: "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FBlockstudios_Optician_FanArt.jpg?1532520145184"
-    },
-    {
-        id: 3,
-        name: "Otterman",
-        uri: "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FBlockstudios_OtterMan.jpg?1532520145239"
-    },
-    {
-        id: 4,
-        name: "CoinZuki",
-        uri: "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FKnownOrigin_CoinZuki.jpg?1532520234241"
-    },
-    {
-        id: 5,
-        name: "Like a Human 1",
-        uri: "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FKnownOrigin_Like%20a%20Human%201.jpg?1532520234767"
-    },
-    {
-        id: 6,
-        name: "Melt",
-        uri: "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FKnownOrigin_Melt.jpg?1532520235200"
-    },
-    {
-        id: 7,
-        name: "Tempo",
-        uri: "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FKnownOrigin_Tempo.jpg?1532520236125"
-    },
-    {
-        id: 8,
-        name: "Cells",
-        uri: "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FKnownOrigin_Cells.jpg?1532520236416"
-    },
-    {
-        id: 9,
-        name: "Pebbles",
-        uri: "https://cdn.glitch.com/8a82e1d4-acae-4a25-96f3-7c4d602b8500%2FKnownOrigin_Pebbles.jpg?1532520240265"
-    }
-]; // bootstrapping with 10 stickers
 var orders = []; // Global state, for this hackathon we will store orders in memory
 // Generate orders
-create_tokens_1.createTokens().then(function (tokenList) {
-    for (var i = 0; i < stickers.length; i++) {
-        stickers[i].id = tokenList[i];
-        create_order_1.createOrder("0x5409ed021d9299bf6814279a6a1411a7e866a631", 10, tokenList[i], stickers[i]).then(function (res) { return orders.push(res); });
+create_tokens_1.createTokens(constants_1.stickers.length).then(function (tokenList) {
+    for (var i = 0; i < constants_1.stickers.length; i++) {
+        constants_1.stickers[i].id = tokenList[i];
+        create_order_1.createOrder("0x5409ed021d9299bf6814279a6a1411a7e866a631", 10, tokenList[i], constants_1.stickers[i]).then(function (res) { return orders.push(res); });
     }
 });
 // HTTP Serverss
@@ -175,7 +124,7 @@ function renderOrderBook() {
 }
 function renderPortfolio(address) {
     return __awaiter(this, void 0, void 0, function () {
-        var owners, i, temp;
+        var owners, i, temp, portfolio;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -183,19 +132,20 @@ function renderPortfolio(address) {
                     i = 0;
                     _a.label = 1;
                 case 1:
-                    if (!(i < stickers.length)) return [3 /*break*/, 4];
-                    console.log(stickers[i].id);
-                    return [4 /*yield*/, print_utils_1.findERC721Owner(dummyERC721TokenContract, new utils_1.BigNumber(stickers[i].id))];
+                    if (!(i < constants_1.stickers.length)) return [3 /*break*/, 4];
+                    return [4 /*yield*/, print_utils_1.findERC721Owner(dummyERC721TokenContract, new utils_1.BigNumber(constants_1.stickers[i].id))];
                 case 2:
                     temp = _a.sent();
-                    owners.push(temp);
+                    owners.push({ owner: temp, tokenId: constants_1.stickers[i].id });
                     _a.label = 3;
                 case 3:
                     i++;
                     return [3 /*break*/, 1];
                 case 4:
-                    console.log(owners);
-                    return [2 /*return*/];
+                    portfolio = owners
+                        .map(function (element) { return (element.owner === address ? element.tokenId : undefined); })
+                        .filter(function (obj) { return obj; });
+                    return [2 /*return*/, constants_1.stickers.filter(function (obj) { return portfolio.includes(obj.id); })];
             }
         });
     });

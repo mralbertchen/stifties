@@ -40,9 +40,33 @@ const takerAssetData = ZeroEx.encodeERC20AssetData(etherTokenAddress);
 let txHash;
 let txReceipt;
 
-export async function fillOrder(signedOrderWithMetaData, taker) {
+export async function fillOrder(orderData, taker) {
   try {
-    const maker = signedOrderWithMetaData.makerAddress;
+    const maker = orderData.makerAddress;
+    // gets rid of metaData
+    const tokenId = new BigNumber(orderData.tokenId);
+    delete orderData.tokenId;
+    delete orderData.orderId;
+    delete orderData.uri;
+    delete orderData.name;
+
+    // Print out the Balances and Allowances
+    const erc20ProxyAddress = zeroEx.erc20Proxy.getContractAddress();
+    await fetchAndPrintAllowancesAsync(
+      { maker, taker },
+      [etherTokenContract],
+      erc20ProxyAddress
+    );
+    await fetchAndPrintBalancesAsync({ maker, taker }, [
+      dummyERC721TokenContract,
+      etherTokenContract
+    ]);
+    await fetchAndPrintERC721Owner(
+      { maker, taker },
+      dummyERC721TokenContract,
+      tokenId
+    );
+
     // Approve the new ERC721 Proxy to move the ERC721 tokens for maker
     const makerERC721ApprovalTxHash = await zeroEx.erc721Token.setProxyApprovalForAllAsync(
       dummyERC721TokenContract.address,
@@ -83,14 +107,18 @@ export async function fillOrder(signedOrderWithMetaData, taker) {
       ["Taker WETH Approval", takerWETHApprovalTxHash],
       ["Taker WETH Deposit", takerWETHDepositTxHash]
     ]);
-    // gets rid of metaData
-    const tokenId = new BigNumber(signedOrderWithMetaData.tokenId);
-    delete signedOrderWithMetaData.tokenId;
-    delete signedOrderWithMetaData.orderId;
-    delete signedOrderWithMetaData.uri;
-    delete signedOrderWithMetaData.name;
 
-    const signedOrder = signedOrderWithMetaData;
+    const orderHashHex = ZeroEx.getOrderHashHex(orderData);
+
+    const ecSignature = await zeroEx.ecSignOrderHashAsync(orderHashHex, maker, {
+      prefixType: MessagePrefixType.EthSign,
+      shouldAddPrefixBeforeCallingEthSign: false
+    });
+    const signature = signingUtils.rsvToSignature(ecSignature);
+
+    const signedOrder = { ...orderData, signature };
+
+    await zeroEx.exchange.isValidSignatureAsync(orderHashHex, maker, signature);
 
     console.log(`filling order...`);
     const txHash = await zeroEx.exchange.fillOrderAsync(
@@ -101,6 +129,22 @@ export async function fillOrder(signedOrderWithMetaData, taker) {
     );
 
     console.log(`order filled ${txHash}`);
+
+    txReceipt = await awaitTransactionMinedSpinnerAsync(
+      "fillOrder",
+      txHash,
+      zeroEx
+    );
+
+    console.log(txReceipt);
+
+    printTransaction("fillOrder", txReceipt, [["orderHash", orderHashHex]]);
+
+    // Print the Balances
+    await fetchAndPrintBalancesAsync({ maker, taker }, [
+      dummyERC721TokenContract,
+      etherTokenContract
+    ]);
     await fetchAndPrintERC721Owner(
       { maker, taker },
       dummyERC721TokenContract,

@@ -13,32 +13,5 @@ const dummy721ABI = require("./dummy721.json").abi;
   const web3 = new Web3(provider);
   const account = web3.eth.accounts.privateKeyToAccount(privateKey);
 
-  const myContract = new web3.eth.Contract(dummy721ABI, contractAddress, {
-    from: account.address
-  });
-
-  const contractTx = myContract.methods.mint(
-    account.address,
-    web3.utils.randomHex(32)
-  );
-  const encodedABI = contractTx.encodeABI();
-
-  const tx = {
-    from: account.address,
-    to: contractAddress,
-    gasPrice: "0x4A817C800",
-    gas: 40000000,
-    data: encodedABI
-  };
-
-  web3.eth.getBalance(account.address).then(res => {
-    console.log(web3.utils.fromWei(res, "ether"));
-  });
-
-  const signed = await web3.eth.accounts.signTransaction(tx, privateKey);
-
-  web3.eth
-    .sendSignedTransaction(signed.rawTransaction)
-    .then(res => console.log(res))
-    .catch(err => console.error(err));
+  web3.eth.getGasPrice().then(console.log);
 })();

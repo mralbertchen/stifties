@@ -76,6 +76,7 @@ function scenario() {
                     makerAssetData = order_utils_1.assetDataUtils.encodeERC721AssetData(dummyERC721TokenContract.address, tokenId);
                     etherTokenAddress = zeroEx.etherToken.getContractAddressIfExists();
                     takerAssetData = _0x_js_1.ZeroEx.encodeERC20AssetData(etherTokenAddress);
+                    debugger;
                     return [4 /*yield*/, dummyERC721TokenContract.mint.sendTransactionAsync(maker, tokenId, { from: maker })];
                 case 2:
                     mintTxHash = _b.sent();
@@ -124,6 +125,7 @@ function scenario() {
                         makerFee: constants_1.ZERO,
                         takerFee: constants_1.ZERO
                     };
+                    console.log("\n\n ASSET DATA:", order_utils_1.assetDataUtils.decodeERC721AssetData(order.makerAssetData));
                     print_utils_1.printData("Order", Object.entries(order));
                     erc20ProxyAddress = zeroEx.erc20Proxy.getContractAddress();
                     return [4 /*yield*/, print_utils_1.fetchAndPrintAllowancesAsync({ maker: maker, taker: taker }, [contracts_1.etherTokenContract], erc20ProxyAddress)];
@@ -147,6 +149,8 @@ function scenario() {
                     ecSignature = _b.sent();
                     signature = signing_utils_1.signingUtils.rsvToSignature(ecSignature);
                     signedOrder = __assign({}, order, { signature: signature });
+                    console.log("order", order);
+                    console.log("signedOrder", signedOrder);
                     return [4 /*yield*/, zeroEx.exchange.fillOrderAsync(signedOrder, takerAssetAmount, taker, { gasLimit: constants_1.TX_DEFAULTS.gas })];
                 case 14:
                     // Fill the Order via 0x.js Exchange contract

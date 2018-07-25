@@ -47,6 +47,8 @@ export async function scenario() {
   let txHash;
   let txReceipt;
 
+  debugger;
+
   // Mint a new ERC721 token for the maker
   const mintTxHash = await dummyERC721TokenContract.mint.sendTransactionAsync(
     maker,
@@ -123,6 +125,11 @@ export async function scenario() {
     takerFee: ZERO
   } as Order;
 
+  console.log(
+    "\n\n ASSET DATA:",
+    assetDataUtils.decodeERC721AssetData(order.makerAssetData)
+  );
+
   printData("Order", Object.entries(order));
 
   // Print out the Balances and Allowances
@@ -150,6 +157,8 @@ export async function scenario() {
   });
   const signature = signingUtils.rsvToSignature(ecSignature);
   const signedOrder = { ...order, signature };
+  console.log("order", order);
+  console.log("signedOrder", signedOrder);
   // Fill the Order via 0x.js Exchange contract
   txHash = await zeroEx.exchange.fillOrderAsync(
     signedOrder,

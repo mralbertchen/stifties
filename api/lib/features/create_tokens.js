@@ -39,9 +39,10 @@ var _0x_js_1 = require("0x.js");
 var constants_1 = require("../constants");
 var contracts_1 = require("../contracts");
 var print_utils_1 = require("../print_utils");
-function createTokens() {
+function createTokens(qty) {
+    if (qty === void 0) { qty = 10; }
     return __awaiter(this, void 0, void 0, function () {
-        var dummyERC721TokenContract, zeroEx, _a, maker, taker, tokenId, tokenIdList, i, tempNum, temp;
+        var dummyERC721TokenContract, zeroEx, _a, maker, taker, tokenIdList, i, tokenId, temp;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -58,20 +59,19 @@ function createTokens() {
                 case 1:
                     _a = _b.sent(), maker = _a[0], taker = _a[1];
                     print_utils_1.printData("Accounts", [["Maker", maker], ["Taker", taker]]);
-                    tokenId = _0x_js_1.ZeroEx.generatePseudoRandomSalt();
                     tokenIdList = [];
                     i = 0;
                     _b.label = 2;
                 case 2:
-                    if (!(i < 10)) return [3 /*break*/, 5];
-                    tempNum = tokenId.add(i);
-                    return [4 /*yield*/, dummyERC721TokenContract.mint.sendTransactionAsync(maker, tempNum, {
+                    if (!(i < qty)) return [3 /*break*/, 5];
+                    tokenId = _0x_js_1.ZeroEx.generatePseudoRandomSalt();
+                    return [4 /*yield*/, dummyERC721TokenContract.mint.sendTransactionAsync(maker, tokenId, {
                             from: maker
                         })];
                 case 3:
                     temp = _b.sent();
-                    console.log("Creating token number " + temp);
-                    tokenIdList.push(temp);
+                    console.log("Creating token id " + tokenId.toString(16) + ", tx: " + temp);
+                    tokenIdList.push(tokenId);
                     _b.label = 4;
                 case 4:
                     i++;

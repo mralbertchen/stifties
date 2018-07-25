@@ -1,4 +1,12 @@
 "use strict";
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -36,10 +44,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var _0x_js_1 = require("0x.js");
+var order_utils_1 = require("@0xproject/order-utils");
 var utils_1 = require("@0xproject/utils");
 var constants_1 = require("../constants");
 var contracts_1 = require("../contracts");
 var print_utils_1 = require("../print_utils");
+var signing_utils_1 = require("../signing_utils");
 var dummyERC721TokenContract = contracts_1.dummyERC721TokenContracts[0];
 if (!dummyERC721TokenContract) {
     throw "No Dummy ERC721 Tokens deployed on this network";
@@ -55,57 +65,94 @@ var etherTokenAddress = zeroEx.etherToken.getContractAddressIfExists();
 var takerAssetData = _0x_js_1.ZeroEx.encodeERC20AssetData(etherTokenAddress);
 var txHash;
 var txReceipt;
-function fillOrder(signedOrderWithMetaData, taker) {
+function fillOrder(orderData, taker) {
     return __awaiter(this, void 0, void 0, function () {
-        var maker, makerERC721ApprovalTxHash, takerWETHApprovalTxHash, takerWETHDepositTxHash, tokenId, signedOrder, txHash_1, err_1;
+        var maker, tokenId, erc20ProxyAddress, makerERC721ApprovalTxHash, takerWETHApprovalTxHash, takerWETHDepositTxHash, orderHashHex, ecSignature, signature, signedOrder, txHash_1, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 9, , 10]);
-                    maker = signedOrderWithMetaData.makerAddress;
-                    return [4 /*yield*/, zeroEx.erc721Token.setProxyApprovalForAllAsync(dummyERC721TokenContract.address, maker, true)];
+                    _a.trys.push([0, 16, , 17]);
+                    maker = orderData.makerAddress;
+                    tokenId = new utils_1.BigNumber(orderData.tokenId);
+                    delete orderData.tokenId;
+                    delete orderData.orderId;
+                    delete orderData.uri;
+                    delete orderData.name;
+                    erc20ProxyAddress = zeroEx.erc20Proxy.getContractAddress();
+                    return [4 /*yield*/, print_utils_1.fetchAndPrintAllowancesAsync({ maker: maker, taker: taker }, [contracts_1.etherTokenContract], erc20ProxyAddress)];
                 case 1:
+                    _a.sent();
+                    return [4 /*yield*/, print_utils_1.fetchAndPrintBalancesAsync({ maker: maker, taker: taker }, [
+                            dummyERC721TokenContract,
+                            contracts_1.etherTokenContract
+                        ])];
+                case 2:
+                    _a.sent();
+                    return [4 /*yield*/, print_utils_1.fetchAndPrintERC721Owner({ maker: maker, taker: taker }, dummyERC721TokenContract, tokenId)];
+                case 3:
+                    _a.sent();
+                    return [4 /*yield*/, zeroEx.erc721Token.setProxyApprovalForAllAsync(dummyERC721TokenContract.address, maker, true)];
+                case 4:
                     makerERC721ApprovalTxHash = _a.sent();
                     return [4 /*yield*/, print_utils_1.awaitTransactionMinedSpinnerAsync("Maker ERC721 Approval", makerERC721ApprovalTxHash, zeroEx)];
-                case 2:
+                case 5:
                     txReceipt = _a.sent();
                     return [4 /*yield*/, zeroEx.erc20Token.setUnlimitedProxyAllowanceAsync(etherTokenAddress, taker)];
-                case 3:
+                case 6:
                     takerWETHApprovalTxHash = _a.sent();
                     return [4 /*yield*/, print_utils_1.awaitTransactionMinedSpinnerAsync("Taker WETH Approval", takerWETHApprovalTxHash, zeroEx)];
-                case 4:
+                case 7:
                     txReceipt = _a.sent();
                     return [4 /*yield*/, zeroEx.etherToken.depositAsync(etherTokenAddress, takerAssetAmount, taker)];
-                case 5:
+                case 8:
                     takerWETHDepositTxHash = _a.sent();
                     return [4 /*yield*/, print_utils_1.awaitTransactionMinedSpinnerAsync("Taker WETH Deposit", takerWETHDepositTxHash, zeroEx)];
-                case 6:
+                case 9:
                     txReceipt = _a.sent();
                     print_utils_1.printData("Fill", [
                         ["Maker ERC721 Approval", makerERC721ApprovalTxHash],
                         ["Taker WETH Approval", takerWETHApprovalTxHash],
                         ["Taker WETH Deposit", takerWETHDepositTxHash]
                     ]);
-                    tokenId = new utils_1.BigNumber(signedOrderWithMetaData.tokenId);
-                    delete signedOrderWithMetaData.tokenId;
-                    delete signedOrderWithMetaData.orderId;
-                    delete signedOrderWithMetaData.uri;
-                    delete signedOrderWithMetaData.name;
-                    signedOrder = signedOrderWithMetaData;
+                    orderHashHex = _0x_js_1.ZeroEx.getOrderHashHex(orderData);
+                    return [4 /*yield*/, zeroEx.ecSignOrderHashAsync(orderHashHex, maker, {
+                            prefixType: order_utils_1.MessagePrefixType.EthSign,
+                            shouldAddPrefixBeforeCallingEthSign: false
+                        })];
+                case 10:
+                    ecSignature = _a.sent();
+                    signature = signing_utils_1.signingUtils.rsvToSignature(ecSignature);
+                    signedOrder = __assign({}, orderData, { signature: signature });
+                    return [4 /*yield*/, zeroEx.exchange.isValidSignatureAsync(orderHashHex, maker, signature)];
+                case 11:
+                    _a.sent();
                     console.log("filling order...");
                     return [4 /*yield*/, zeroEx.exchange.fillOrderAsync(signedOrder, takerAssetAmount, taker, { gasLimit: constants_1.TX_DEFAULTS.gas })];
-                case 7:
+                case 12:
                     txHash_1 = _a.sent();
                     console.log("order filled " + txHash_1);
+                    return [4 /*yield*/, print_utils_1.awaitTransactionMinedSpinnerAsync("fillOrder", txHash_1, zeroEx)];
+                case 13:
+                    txReceipt = _a.sent();
+                    console.log(txReceipt);
+                    print_utils_1.printTransaction("fillOrder", txReceipt, [["orderHash", orderHashHex]]);
+                    // Print the Balances
+                    return [4 /*yield*/, print_utils_1.fetchAndPrintBalancesAsync({ maker: maker, taker: taker }, [
+                            dummyERC721TokenContract,
+                            contracts_1.etherTokenContract
+                        ])];
+                case 14:
+                    // Print the Balances
+                    _a.sent();
                     return [4 /*yield*/, print_utils_1.fetchAndPrintERC721Owner({ maker: maker, taker: taker }, dummyERC721TokenContract, tokenId)];
-                case 8:
+                case 15:
                     _a.sent();
                     return [2 /*return*/, txHash_1];
-                case 9:
+                case 16:
                     err_1 = _a.sent();
                     Promise.reject("Could not fill order, error occured: " + err_1);
-                    return [3 /*break*/, 10];
-                case 10: return [2 /*return*/];
+                    return [3 /*break*/, 17];
+                case 17: return [2 /*return*/];
             }
         });
     });

@@ -48,7 +48,6 @@ var order_utils_1 = require("@0xproject/order-utils");
 var utils_1 = require("@0xproject/utils");
 var constants_1 = require("../constants");
 var contracts_1 = require("../contracts");
-var signing_utils_1 = require("../signing_utils");
 var dummyERC721TokenContract = contracts_1.dummyERC721TokenContracts[0];
 if (!dummyERC721TokenContract) {
     throw "No Dummy ERC721 Tokens deployed on this network";
@@ -65,41 +64,31 @@ var txHash;
 var txReceipt;
 function createOrder(makerAddress, askPrice, tokenId, metaDataRef) {
     return __awaiter(this, void 0, void 0, function () {
-        var metaData, makerAssetData, rawOrder, orderHashHex, ecSignature, signature, signedOrderWithMetaData;
+        var metaData, makerAssetData, rawOrder, orderHashHex, orderToReturn;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    metaData = Object.assign({}, metaDataRef);
-                    makerAssetData = order_utils_1.assetDataUtils.encodeERC721AssetData(dummyERC721TokenContract.address, new utils_1.BigNumber(tokenId));
-                    rawOrder = {
-                        exchangeAddress: exchangeAddress,
-                        makerAddress: makerAddress,
-                        takerAddress: constants_1.NULL_ADDRESS,
-                        senderAddress: constants_1.NULL_ADDRESS,
-                        feeRecipientAddress: constants_1.NULL_ADDRESS,
-                        expirationTimeSeconds: expirationTimeSeconds,
-                        salt: _0x_js_1.ZeroEx.generatePseudoRandomSalt(),
-                        makerAssetAmount: makerAssetAmount,
-                        takerAssetAmount: new utils_1.BigNumber(askPrice),
-                        makerAssetData: makerAssetData,
-                        takerAssetData: takerAssetData,
-                        makerFee: constants_1.ZERO,
-                        takerFee: constants_1.ZERO
-                    };
-                    orderHashHex = _0x_js_1.ZeroEx.getOrderHashHex(rawOrder);
-                    metaData["orderId"] = orderHashHex;
-                    metaData["tokenId"] = metaData.id;
-                    delete metaData.id;
-                    return [4 /*yield*/, zeroEx.ecSignOrderHashAsync(orderHashHex, makerAddress, {
-                            prefixType: order_utils_1.MessagePrefixType.EthSign,
-                            shouldAddPrefixBeforeCallingEthSign: false
-                        })];
-                case 1:
-                    ecSignature = _a.sent();
-                    signature = signing_utils_1.signingUtils.rsvToSignature(ecSignature);
-                    signedOrderWithMetaData = __assign({}, rawOrder, { signature: signature }, metaData);
-                    return [2 /*return*/, signedOrderWithMetaData];
-            }
+            metaData = Object.assign({}, metaDataRef);
+            makerAssetData = order_utils_1.assetDataUtils.encodeERC721AssetData(dummyERC721TokenContract.address, tokenId);
+            rawOrder = {
+                exchangeAddress: exchangeAddress,
+                makerAddress: makerAddress,
+                takerAddress: constants_1.NULL_ADDRESS,
+                senderAddress: constants_1.NULL_ADDRESS,
+                feeRecipientAddress: constants_1.NULL_ADDRESS,
+                expirationTimeSeconds: expirationTimeSeconds,
+                salt: _0x_js_1.ZeroEx.generatePseudoRandomSalt(),
+                makerAssetAmount: makerAssetAmount,
+                takerAssetAmount: new utils_1.BigNumber(askPrice),
+                makerAssetData: makerAssetData,
+                takerAssetData: takerAssetData,
+                makerFee: constants_1.ZERO,
+                takerFee: constants_1.ZERO
+            };
+            orderHashHex = _0x_js_1.ZeroEx.getOrderHashHex(rawOrder);
+            metaData["orderId"] = orderHashHex;
+            metaData["tokenId"] = metaData.id;
+            delete metaData.id;
+            orderToReturn = __assign({}, rawOrder, metaData);
+            return [2 /*return*/, orderToReturn];
         });
     });
 }

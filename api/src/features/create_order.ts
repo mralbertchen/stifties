@@ -42,14 +42,14 @@ let txReceipt;
 export async function createOrder(
   makerAddress,
   askPrice,
-  tokenId,
+  tokenId: BigNumber,
   metaDataRef
 ) {
   const metaData = Object.assign({}, metaDataRef);
 
   const makerAssetData = assetDataUtils.encodeERC721AssetData(
     dummyERC721TokenContract.address,
-    new BigNumber(tokenId)
+    tokenId
   );
   const rawOrder = {
     exchangeAddress,
@@ -72,16 +72,7 @@ export async function createOrder(
   metaData["tokenId"] = metaData.id;
   delete metaData.id;
 
-  const ecSignature = await zeroEx.ecSignOrderHashAsync(
-    orderHashHex,
-    makerAddress,
-    {
-      prefixType: MessagePrefixType.EthSign,
-      shouldAddPrefixBeforeCallingEthSign: false
-    }
-  );
-  const signature = signingUtils.rsvToSignature(ecSignature);
-  const signedOrderWithMetaData = { ...rawOrder, signature, ...metaData };
+  const orderToReturn = { ...rawOrder, ...metaData };
 
-  return signedOrderWithMetaData;
+  return orderToReturn;
 }
