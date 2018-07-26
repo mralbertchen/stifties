@@ -29,15 +29,20 @@ class App extends Component {
   }
 
   async componentDidMount() {
+    // const address = await window.web3.eth
+    //   .getAccounts()
+    //   .then(accounts => accounts[0]);
     const address = await window.web3.eth.accounts[0];
 
     var data = JSON.stringify(false);
 
     xhr = new XMLHttpRequest();
+    // xhr.withCredentials = true;
 
     xhr.open(
       "GET",
-      `https://api.rarebits.io/v1/addresses/${address}/token_items?api_key=9bbc7cc2-c921-4585-a30b-01c907cef371`
+      // `https://api.rarebits.io/v1/addresses/${address}/token_items?api_key=9bbc7cc2-c921-4585-a30b-01c907cef371`
+      `http://localhost:8080/v0/portfolio/${address}`
     );
 
     xhr.send(data);
@@ -53,17 +58,18 @@ class App extends Component {
     }
   }
 
-  setStateFromResponse(responseText) {
-    console.log(responseText);
-
-    // this.setState({
-    //   tokens: JSON.parse(responseText).entries
-    // });
-  }
-
   handleClose() {
     this.setState({ showStickersModal: false });
   }
+
+  // scrollToBottom() {
+  //   const { messageList } = this.refs;
+  //   const scrollHeight = messageList.scrollHeight;
+  //   const height = messageList.clientHeight;
+  //   const maxScrollTop = scrollHeight - height;
+  //   ReactDOM.findDOMNode(messageList).scrollTop =
+  //     maxScrollTop > 0 ? maxScrollTop : 0;
+  // }
 
   render() {
     return (
@@ -73,7 +79,7 @@ class App extends Component {
             STIFTIES
             {/* {JSON.stringify(window.web3.eth.accounts[0])} */}
           </div>
-          <div>
+          <div style={{ marginBottom: 50 }}>
             {this.props.messages.map(message => <Message message={message} />)}
             <Clearfix />
           </div>

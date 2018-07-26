@@ -56,23 +56,31 @@ const YourStickersModal = class extends React.Component {
         </Modal.Header>
         <Modal.Body>
           <Row>
-            {tokens.map(token => (
-              <Col xs={6} key={token.token_id}>
-                <Image src={token.image_url} responsive />
-                <Button
-                  onClick={() => {
-                    this.props.handleClose();
-                    this.handleSend(token);
-                  }}
-                >
-                  Send
-                </Button>
-              </Col>
-            ))}
+            {tokens.length !== 0 ? (
+              tokens.map(token => (
+                <Col xs={6} key={token.token_id}>
+                  <Image src={token.image_url} responsive />
+                  <Button
+                    onClick={() => {
+                      this.props.handleClose();
+                      this.handleSend(token);
+                    }}
+                  >
+                    Send
+                  </Button>
+                </Col>
+              ))
+            ) : (
+              <div className="text-center pa-5">No stifties</div>
+            )}
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => this.setState({ showStickersModal: true })}>
+          <Button
+            onClick={() => this.setState({ showStickersModal: true })}
+            className="fancy-buttons"
+            bsStyle="primary"
+          >
             Get stifties
           </Button>
           <StickersMarketplaceModal

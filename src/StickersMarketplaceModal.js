@@ -23,15 +23,36 @@ class StickersMarketplaceModal extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:8080/v0/orderbook", {
-      // mode: 'no-cors',
+    fetch(`http://localhost:8080/v0/orderbook`, {
+      // mode: "no-cors",
       method: "GET",
       headers: {
         Accept: "application/json"
       }
     })
       .then(orders => orders.json())
-      .then(data => this.setState({ orders: data.orders }))
+      .then(data => {
+        console.log("orderbook", data);
+        this.setState({ orders: data.orders });
+      })
+      .catch(err => new Error(err));
+  }
+
+  handleBuy(order) {
+    console.log(order.orderId);
+
+    fetch("http://localhost:8080/v0/fillorder/", {
+      method: "POST",
+      Body: {
+        orderId: order.orderId,
+        taker: "0x53F15Df0693f95B6ECC5bf400E45A912dAf08894"
+      }
+    })
+      .then(orders => orders.json())
+      .then(data => {
+        console.log(data);
+        this.props.handleClose;
+      })
       .catch(err => new Error(err));
   }
 
@@ -47,10 +68,10 @@ class StickersMarketplaceModal extends React.Component {
         <Modal.Body>
           <Row>
             {orders.length === 0 ? (
-              <div>Loading...</div>
+              <div className="text-center">Loading...</div>
             ) : (
               orders.map(order => (
-                <Col xs={6} key={order.id}>
+                <Col xs={6} key={order.orderId}>
                   <div
                     style={{
                       height: 250,
@@ -61,7 +82,9 @@ class StickersMarketplaceModal extends React.Component {
                     <Image src={order.uri} responsive />
                     <div className="u-truncate">{order.name}</div>
                   </div>
-                  <Button block>Buy now!</Button>
+                  <Button block onClick={() => this.handleBuy(order)}>
+                    Buy now!
+                  </Button>
                 </Col>
               ))
             )}

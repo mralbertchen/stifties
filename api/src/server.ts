@@ -1,38 +1,14 @@
-import { DummyERC721TokenContract } from "./contract_wrappers/dummy_erc721_token";
+import { BigNumber } from "@0xproject/utils";
+import { stickers } from "./constants";
+import { dummyERC721TokenContracts } from "./contracts";
+import { createOrder } from "./features/create_order";
+import { createTokens } from "./features/create_tokens";
+import { fillOrder } from "./features/fill_order";
+import { findERC721Owner } from "./print_utils";
 const bodyParser = require("body-parser");
 const express = require("express");
 const http = require("http");
-
-import { ZeroEx } from "0x.js";
-import { assetDataUtils, MessagePrefixType } from "@0xproject/order-utils";
-import { Order } from "@0xproject/types";
-import { BigNumber } from "@0xproject/utils";
-import {
-  NETWORK_ID,
-  NULL_ADDRESS,
-  TX_DEFAULTS,
-  ZERO,
-  stickers
-} from "./constants";
-import {
-  dummyERC721TokenContracts,
-  providerEngine,
-  etherTokenContract
-} from "./contracts";
-import {
-  awaitTransactionMinedSpinnerAsync,
-  fetchAndPrintAllowancesAsync,
-  fetchAndPrintBalancesAsync,
-  fetchAndPrintERC721Owner,
-  printData,
-  printScenario,
-  printTransaction,
-  findERC721Owner
-} from "./print_utils";
-import { signingUtils } from "./signing_utils";
-import { createTokens } from "./features/create_tokens";
-import { createOrder } from "./features/create_order";
-import { fillOrder } from "./features/fill_order";
+const cors = require("cors");
 
 const dummyERC721TokenContract = dummyERC721TokenContracts[0];
 
@@ -55,6 +31,7 @@ createTokens(stickers.length).then(tokenList => {
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get("/v0/orderbook", (req, res) => {
   console.log("HTTP: GET orderbook");

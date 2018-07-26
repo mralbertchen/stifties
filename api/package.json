@@ -56,12 +56,14 @@
     "ethereum-types": "^0.0.2",
     "ethers": "3.0.22",
     "express": "^4.16.3",
+    "global": "^4.3.2",
     "lodash": "^4.17.4",
     "node-config": "^0.0.2",
     "ora": "^2.1.0",
     "run-s": "^0.0.0",
     "web3": "^1.0.0-beta.34",
-    "web3-provider-engine": "^14.0.4"
+    "web3-provider-engine": "^14.0.4",
+    "yarn": "^1.7.0"
   },
   "devDependencies": {
     "@0xproject/dev-utils": "^1.0.0",

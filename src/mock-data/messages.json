@@ -2,7 +2,32 @@
   {
     "userIsSender": false,
     "time": "Wed Jun 27 2018 16:30:13 GMT+0800 (Hong Kong Standard Time)",
-    "content": "Hello there!",
+    "content": "Having fun in Hong Kong?",
+    "type": "text"
+  },
+  {
+    "userIsSender": true,
+    "time": "Wed Jun 27 2018 16:31:13 GMT+0800 (Hong Kong Standard Time)",
+    "content": "NIFTY is great! Working with a great team on an amazing idea!",
+    "type": "text"
+  },
+  {
+    "userIsSender": false,
+    "time": "Wed Jun 27 2018 16:32:13 GMT+0800 (Hong Kong Standard Time)",
+    "content": "What's the project about?",
+    "type": "text"
+  },
+  {
+    "userIsSender": true,
+    "time": "Wed Jun 27 2018 16:33:13 GMT+0800 (Hong Kong Standard Time)",
+    "content": "We're tokenizing stickers",
+    "type": "text"
+  },
+  {
+    "userIsSender": false,
+    "time": "Wed Jun 27 2018 16:34:13 GMT+0800 (Hong Kong Standard Time)",
+    "content":
+      "Does this mean I can finally send my CryptoKitties as stickers to my friends?",
     "type": "text"
   }
 ]
