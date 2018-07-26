@@ -40,21 +40,7 @@ class StickersMarketplaceModal extends React.Component {
   }
 
   handleBuy(order) {
-    console.log(order.orderId);
-
-    // fetch("http://localhost:8080/v0/fillorder/", {
-    //   method: "POST",
-    //   body: {
-    //     orderId: order.orderId,
-    //     taker: "0x91c987bf62d25945db517bdaa840a6c661374402"
-    //   }
-    // })
-    //   .then(orders => orders.json())
-    //   .then(data => {
-    //     console.log(data);
-    //     this.props.handleClose;
-    //   })
-    //   .catch(err => new Error(err));
+    this.props.handleClose();
 
     var options = {
       method: "POST",
@@ -73,9 +59,7 @@ class StickersMarketplaceModal extends React.Component {
 
     request(options, function(error, response, body) {
       if (error) throw new Error(error);
-
-      console.log(body);
-    });
+    }).then(() => this.props.handleRefresh());
   }
 
   render() {
@@ -93,19 +77,34 @@ class StickersMarketplaceModal extends React.Component {
               <div className="text-center">Loading...</div>
             ) : (
               orders.map(order => (
-                <Col xs={6} key={order.orderId}>
+                <Col xs={6} key={order.orderId} className="mb-5">
                   <div
                     style={{
-                      height: 250,
+                      height: 150,
                       display: "flex",
                       alignItems: "center"
                     }}
+                    className="mb-2"
                   >
+                    {console.log(order)}
                     <Image src={order.uri} responsive />
-                    <div className="u-truncate">{order.name}</div>
                   </div>
-                  <Button block onClick={() => this.handleBuy(order)}>
-                    Buy now!
+                  <div className="u-truncate">{order.name}</div>
+                  <div
+                    className="u-truncate mb-2"
+                    style={{ color: "rgba(0, 0, 0, 0.25)" }}
+                  >
+                    {order.takerAssetAmount} Gwei
+                  </div>
+                  <Button
+                    className="fancy-buttons"
+                    bsStyle="primary"
+                    onClick={() => {
+                      this.handleBuy(order);
+                    }}
+                    bsSize="small"
+                  >
+                    Get
                   </Button>
                 </Col>
               ))

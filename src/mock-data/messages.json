@@ -20,14 +20,7 @@
   {
     "userIsSender": true,
     "time": "Wed Jun 27 2018 16:33:13 GMT+0800 (Hong Kong Standard Time)",
-    "content": "We're tokenizing stickers",
-    "type": "text"
-  },
-  {
-    "userIsSender": false,
-    "time": "Wed Jun 27 2018 16:34:13 GMT+0800 (Hong Kong Standard Time)",
-    "content":
-      "Does this mean I can finally send my CryptoKitties as stickers to my friends?",
+    "content": "Check it out",
     "type": "text"
   }
 ]

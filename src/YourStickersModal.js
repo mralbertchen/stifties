@@ -1,48 +1,39 @@
 import React from "react";
 import { Button, Col, Image, Modal, Row } from "react-bootstrap";
+import { Send } from "react-feather";
 import { connect } from "react-redux";
 import { createMessage } from "./actions";
 import StickersMarketplaceModal from "./StickersMarketplaceModal";
 
-// const tokens = [
-//   {
-//     id: "0f56df69-11b9-40d4-b0ee-c37eab10c145",
-//     name: "Cryptokitty #1",
-//     url:
-//       "https://steemitimages.com/DQmVLGFaHhUTUz9kLWF6RkT9C8z9Apr3FA4sWysTUQK2scT/kittydracula.png"
-//   },
-//   {
-//     id: "d31dc424-7bed-4128-990c-4b77035ef205",
-//     name: "Cryptokitty #2",
-//     url:
-//       "https://i2.wp.com/www.crypto-news.in/wp-content/uploads/2017/12/cryptokitties-cryptonews-hedwig.png"
-//   },
-//   {
-//     id: "f70d4fc9-bb23-4e30-814e-1c34555a83ca",
-//     name: "Axie #1",
-//     url:
-//       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUGDsi6Sqm2sBTJe7lUUlhW1kcrTO86zZeXq3yILRDNS6akZAWMA"
-//   }
-// ];
-
 const YourStickersModal = class extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showStickersModal: false };
+    this.state = { showStickersModal: false, tokens: [], purchasing: false };
 
     this.handleClose = this.handleClose.bind(this);
     this.handleSend = this.handleSend.bind(this);
+    this.handleRefresh = this.handleRefresh.bind(this);
   }
 
   handleClose() {
-    this.setState({ showStickersModal: false });
+    this.setState({
+      showStickersModal: false,
+      purchasing: !this.state.purchasing
+    });
+  }
+
+  handleRefresh() {
+    this.props.refreshWallet();
+    this.setState({
+      purchasing: false
+    });
   }
 
   handleSend(token) {
     this.props.createMessage({
       userIsSender: true,
       time: new Date(),
-      imageUrl: token.image_url,
+      imageUrl: token.uri,
       type: "image"
     });
   }
@@ -55,17 +46,23 @@ const YourStickersModal = class extends React.Component {
           <Modal.Title>Your stifties</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          {this.state.purchasing && (
+            <div className="pa-5 text-center">Getting your stifty…</div>
+          )}
           <Row>
             {tokens.length !== 0 ? (
               tokens.map(token => (
-                <Col xs={6} key={token.token_id}>
-                  <Image src={token.image_url} responsive />
+                <Col xs={6} key={token.token_id} className="mb-3">
+                  <Image src={token.uri} responsive className="mb-3" />
                   <Button
                     onClick={() => {
                       this.props.handleClose();
                       this.handleSend(token);
                     }}
+                    className="fancy-buttons"
+                    bsStyle=""
                   >
+                    <Send size={16} className="mr-2" />
                     Send
                   </Button>
                 </Col>
@@ -86,6 +83,7 @@ const YourStickersModal = class extends React.Component {
           <StickersMarketplaceModal
             show={this.state.showStickersModal}
             handleClose={this.handleClose}
+            handleRefresh={this.handleRefresh}
           />
         </Modal.Footer>
       </Modal>

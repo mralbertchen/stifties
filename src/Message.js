@@ -1,4 +1,3 @@
-import moment from "moment";
 import React from "react";
 import { Image, Panel } from "react-bootstrap";
 
@@ -30,9 +29,9 @@ class Message extends React.Component {
             <Image src={message.imageUrl} responsive />
           </Panel.Body>
         </Panel>
-        <div style={{ color: "rgba(0, 0, 0, 0.25)" }}>
+        {/* <div style={{ color: "rgba(0, 0, 0, 0.25)" }}>
           {moment(message.time).format("DD MMMM, H:m")}
-        </div>
+        </div> */}
       </div>
     );
   }

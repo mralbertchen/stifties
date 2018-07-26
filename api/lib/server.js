@@ -77,6 +77,7 @@ app.get("/v0/portfolio/:address", function (req, res) { return __awaiter(_this, 
         switch (_c.label) {
             case 0:
                 address = req.params.address;
+                address = address.toLowerCase();
                 console.log("HTTP: GET portfolio with " + address);
                 _b = (_a = res.status(200)).send;
                 return [4 /*yield*/, renderPortfolio(address)];
