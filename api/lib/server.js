@@ -43,6 +43,7 @@ var create_order_1 = require("./features/create_order");
 var create_tokens_1 = require("./features/create_tokens");
 var fill_order_1 = require("./features/fill_order");
 var print_utils_1 = require("./print_utils");
+var chai_1 = require("chai");
 var bodyParser = require("body-parser");
 var express = require("express");
 var http = require("http");
@@ -95,6 +96,8 @@ app.post("/v0/fillorder/", function (req, res) { return __awaiter(_this, void 0,
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
+                chai_1.assert(orderId, "There must be orderId");
+                chai_1.assert(taker, "There must be a taker address");
                 orderIndex = orders.findIndex(function (obj) { return obj.orderId === orderId; });
                 order = orders[orderIndex];
                 if (!order)
