@@ -78,24 +78,30 @@ We see the following factors as strong avenues for adoption and growth:
 ## To Start
 
 You would need 3 terminals as there would be 3 services running for this.
+
+In the first terminal:
 ```
 git clone https://github.com/achen27/stifties.git
-cd stifties
-yarn install
-yarn start
-```
-In another terminal:
-```
 cd stifties/api
 yarn install
 yarn build
 yarn download_snapshot
 yarn ganache-cli
+
 ```
-In the last terminal:
+In another terminal:
 ```
-cd stifies/api
+cd stifties/api
+yarn start
+
+```
+Finally, in the last terminal we launch the front-end:
+```
+cd stifies
+yarn install
 yarn start
 ```
+
+Then simply navigate to http://localhost:3000 and test out the app.
 
 
