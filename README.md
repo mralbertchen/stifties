@@ -76,3 +76,26 @@ We see the following factors as strong avenues for adoption and growth:
 :five: Drive data analytics: Downloads and views give evidence about the popularity of a NFT-sticker which are relevant to the NFT investor community
 
 ## To Start
+
+You would need 3 terminals as there would be 3 services running for this.
+```
+git clone https://github.com/achen27/stifties.git
+cd stifties
+yarn install
+yarn start
+```
+In another terminal:
+```
+cd stifties/api
+yarn install
+yarn build
+yarn download_snapshot
+yarn ganache-cli
+```
+In the last terminal:
+```
+cd stifies/api
+yarn start
+```
+
+
