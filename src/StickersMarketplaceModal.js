@@ -16,28 +16,60 @@ const stickers = [
   }
 ];
 
-const StickersMarketplaceModal = ({ show, handleClose }) => {
-  return (
-    <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Get stickers</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Row>
-          {stickers.map(sticker => (
-            <Col xs={6} key={sticker.id}>
-              <div
-                style={{ height: 250, display: "flex", alignItems: "center" }}
-              >
-                <Image src={sticker.url} responsive />
-              </div>
-              <Button block>Buy now!</Button>
-            </Col>
-          ))}
-        </Row>
-      </Modal.Body>
-    </Modal>
-  );
-};
+class StickersMarketplaceModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { orders: [] };
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:8080/v0/orderbook", {
+      // mode: 'no-cors',
+      method: "GET",
+      headers: {
+        Accept: "application/json"
+      }
+    })
+      .then(orders => orders.json())
+      .then(data => this.setState({ orders: data.orders }))
+      .catch(err => new Error(err));
+  }
+
+  render() {
+    const { show, handleClose } = this.props;
+    const { orders } = this.state;
+
+    return (
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Get stickers</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Row>
+            {orders.length === 0 ? (
+              <div>Loading...</div>
+            ) : (
+              orders.map(order => (
+                <Col xs={6} key={order.id}>
+                  <div
+                    style={{
+                      height: 250,
+                      display: "flex",
+                      alignItems: "center"
+                    }}
+                  >
+                    <Image src={order.uri} responsive />
+                    <div className="u-truncate">{order.name}</div>
+                  </div>
+                  <Button block>Buy now!</Button>
+                </Col>
+              ))
+            )}
+          </Row>
+        </Modal.Body>
+      </Modal>
+    );
+  }
+}
 
 export default StickersMarketplaceModal;

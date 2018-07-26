@@ -91,12 +91,23 @@
 .overline {
   text-transform: uppercase;
   font-size: 14px;
-  letter-spacing: 1px;
+  letter-spacing: 8px;
 }
 
 .panel {
   border-width: 0;
-  box-shadow: 0 7.5px 15px lighten(@gray-light, 45%);
+  box-shadow: 0 5px 15px lighten(@gray-light, 45%);
+}
+
+.fancy-input,
+.fancy-buttons {
+  box-shadow: 0 5px 15px lighten(@gray-light, 45%);
+  border-width: 0;
+
+  &:focus,
+  &:hover {
+    box-shadow: 0 5px 15px lighten(@gray-light, 35%);
+  }
 }
 
 .panel-left {

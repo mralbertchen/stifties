@@ -52,7 +52,7 @@ const YourStickersModal = class extends React.Component {
     return (
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Your tokens</Modal.Title>
+          <Modal.Title>Your stifties</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Row>
@@ -73,7 +73,7 @@ const YourStickersModal = class extends React.Component {
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => this.setState({ showStickersModal: true })}>
-            Get more tokens
+            Get stifties
           </Button>
           <StickersMarketplaceModal
             show={this.state.showStickersModal}

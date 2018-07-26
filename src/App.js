@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button, Clearfix, FormControl, Grid } from "react-bootstrap";
+// import * as MaterialIcons from "react-material-icons";
 import { connect } from "react-redux";
-import { Send } from "../node_modules/react-feather";
 import { createMessage } from "./actions";
 import Message from "./Message";
 import YourStickersModal from "./YourStickersModal";
@@ -69,7 +69,7 @@ class App extends Component {
     return (
       <div>
         <Grid>
-          <div className="text-center" style={{ padding: "20px 0" }}>
+          <div className="text-center overline" style={{ padding: "20px 0" }}>
             STIFTIES
             {/* {JSON.stringify(window.web3.eth.accounts[0])} */}
           </div>
@@ -95,13 +95,13 @@ class App extends Component {
             <FormControl
               value={this.state.messageText}
               onChange={e => this.setState({ messageText: e.target.value })}
-              className="mr-3"
+              className="mr-3 fancy-input"
             />
             <Button
               onClick={() => this.setState({ showStickersModal: true })}
-              className="text-center mr-3"
+              className="text-center mr-3 fancy-buttons"
             >
-              😀
+              Stifties
             </Button>
             <YourStickersModal
               show={this.state.showStickersModal}
@@ -110,16 +110,20 @@ class App extends Component {
             />
             <Button
               bsStyle="success"
-              onClick={() =>
+              className="fancy-buttons"
+              style={{ borderWidth: 0 }}
+              onClick={() => {
                 this.props.createMessage({
                   userIsSender: true,
                   time: new Date(),
                   content: this.state.messageText,
                   type: "text"
-                })
-              }
+                });
+                this.setState({ messageText: "" });
+              }}
             >
-              <Send size={16} />
+              {/* <MaterialIcons.Send size={20} /> */}
+              Send
             </Button>
           </div>
         </div>

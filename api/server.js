@@ -1,6 +1,7 @@
 const bodyParser = require("../../../Library/Caches/typescript/2.9/node_modules/@types/body-parserbrary/Caches/typescript/2.9/node_modules/@types/body-parserbrary/Caches/typescript/2.9/node_modules/@types/body-parserbrary/Caches/typescript/2.9/node_modules/@types/body-parser");
 const express = require("../../../Library/Caches/typescript/2.9/node_modules/@types/express./Library/Caches/typescript/2.9/node_modules/@types/express./Library/Caches/typescript/2.9/node_modules/@types/express./Library/Caches/typescript/2.9/node_modules/@types/express");
 const http = require("http");
+const cors = require("cors");
 
 /*
 const order = {
@@ -94,6 +95,7 @@ const orders = [
 
 // HTTP Serverss
 const app = express();
+app.use(cors());
 
 app.use(bodyParser.json());
 app.get("/v0/orderbook", (req, res) => {
@@ -115,8 +117,8 @@ app.post("/v0/fillorder/:id", (req, res) => {
   res.status(201).send({});
 });
 
-app.listen(3000, () =>
-  console.log("Standard relayer API (HTTP) listening on port 3000!")
+app.listen(8080, () =>
+  console.log("Standard relayer API (HTTP) listening on port 8080!")
 );
 
 function renderOrderBook() {
