@@ -18,6 +18,8 @@ Any collectible only has value if there is an interested audience. By tokenising
 
 STIFTIES is an Ethereum-based platform that turns NFTs (ERC721) into stickers that can be sent to contacts via messaging apps. STIFTIES is a marketplace on which stickers can be transacted. 
 
+An artist can create the token on the STIFTIES platform and set the price. After that, the NFT can be freely transacted.
+
 STIFTIES wants to capture as large a creator community as possible: Create stickers out of tokenised artwork and tokenize stickers of non-crypto content creators. 
 
 On the front-end it's a React chat-App that links to a node.js API back-end using 0x-Protocol to act as a relayer for the decentralised sticker market place. The stickers are represented on the blockchain using an ERC721 token. The prototype focuses
@@ -61,7 +63,7 @@ On the technical side, we learned a lot about how decentralized marketplaces wor
 
 ## What's next for STIFTIES
 
-We definitely want to take the concept to the next level: Access the large messaging apps and create in-messaging gaming experiences around stickers. Upcoming releases of blockchain-compatible smartphones represent additional growth drivers for STIFTIES.
+We definitely want to take the concept to the next level: Access the large messaging apps and create in-messaging gaming experiences around stickers. We believe games such as battling and breeding will be hugely popular. Upcoming releases of blockchain-compatible smartphones represent additional growth drivers for STIFTIES.
 
 We see the following factors as strong avenues for adoption and growth:
 
