@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Col, Image, Modal, Row } from "react-bootstrap";
+import request from "request-promise";
 
 const stickers = [
   {
@@ -41,19 +42,40 @@ class StickersMarketplaceModal extends React.Component {
   handleBuy(order) {
     console.log(order.orderId);
 
-    fetch("http://localhost:8080/v0/fillorder/", {
+    // fetch("http://localhost:8080/v0/fillorder/", {
+    //   method: "POST",
+    //   body: {
+    //     orderId: order.orderId,
+    //     taker: "0x91c987bf62d25945db517bdaa840a6c661374402"
+    //   }
+    // })
+    //   .then(orders => orders.json())
+    //   .then(data => {
+    //     console.log(data);
+    //     this.props.handleClose;
+    //   })
+    //   .catch(err => new Error(err));
+
+    var options = {
       method: "POST",
-      Body: {
+      url: "http://localhost:8080/v0/fillorder/",
+      headers: {
+        "Postman-Token": "9d0f04d6-546f-4b69-bdfc-2f98ccf5cc3b",
+        "Cache-Control": "no-cache",
+        "Content-Type": "application/json"
+      },
+      body: {
         orderId: order.orderId,
         taker: "0x53F15Df0693f95B6ECC5bf400E45A912dAf08894"
-      }
-    })
-      .then(orders => orders.json())
-      .then(data => {
-        console.log(data);
-        this.props.handleClose;
-      })
-      .catch(err => new Error(err));
+      },
+      json: true
+    };
+
+    request(options, function(error, response, body) {
+      if (error) throw new Error(error);
+
+      console.log(body);
+    });
   }
 
   render() {
