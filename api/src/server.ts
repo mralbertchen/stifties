@@ -39,13 +39,6 @@ app.get("/v0/orderbook", (req, res) => {
   res.status(201).send(renderOrderBook());
 });
 
-app.post("/v0/order", (req, res) => {
-  console.log("HTTP: POST order");
-  const order = req.body;
-  orders.push(order);
-  res.status(201).send({});
-});
-
 app.get("/v0/portfolio/:address", async (req, res) => {
   let { address } = req.params;
   address = address.toLowerCase();
@@ -67,6 +60,24 @@ app.post("/v0/fillorder/", async (req, res) => {
     res.status(200).send(result);
   } catch (error) {
     res.status(500).json(error);
+  }
+});
+
+app.post("/v0/createorder/", async (req, res) => {
+  const { maker, price, name, uri } = req.body;
+  console.log("HTTP: POST create order");
+  try {
+    assert(maker, "Must have a maker address");
+    assert(price, "Must have a list price");
+    assert(name, "Must have a name");
+    assert(uri, "Must have a uri");
+    const tokenId = (await createTokens(1))[0];
+    const sticker = { id: tokenId, name, uri };
+    const receipt = await createOrder(maker, price, tokenId, sticker);
+    orders.push(receipt);
+    res.status(200).send(receipt);
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
 
