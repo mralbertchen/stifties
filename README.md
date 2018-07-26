@@ -10,9 +10,9 @@ STIFTIES is a marketplace for consumer to download stickers for social media and
 
 The abundance of cryptocollectibles complicates the _discovery process_. _Engagement_ is limited to a few games which are not accessible to a broad audience. Existing marketplaces are difficult to navigate with limited integration into daily touchpoints on mobile devices.
 
-People spend most of their time messaging on mobile devices, through text and video. Oftentimes, a picture says more than a thousand words having led to the emergence of a hugely profitable market for creating and selling digital stickers. These stickers are particularly prevalent across Asian-facing messaging apps such as Line, Kakao and WeChat. 
+People spend most of their time messaging on mobile devices, through text and video. Oftentimes, a picture says more than a thousand words having led to the emergence of a hugely profitable market for creating and selling digital stickers. These stickers are particularly prevalent across Asian messaging apps such as Line, Kakao and WeChat. 
 
-Any collectible only has value if there is an interested audience. By tokenising stickers, STIFTIES creates a captive audience for cryptocollectibles, driving discoverability and engagement. 
+Any collectible only has value if there is an interested audience. By tokenising stickers, STIFTIES creates a captive audience. 
 
 ## What it does - Turn any CryptoCollectible into a shareable digital sticker
 
@@ -24,7 +24,7 @@ On the front-end it's a React chat-App that links to a node.js API back-end usin
 
 ## Substantial market opportunity
 
-The market for stickers is substantial: USD 425mln in FY 2017 (based on Line & Kakao financials) which equates to c. USD 1.70/MAU. This does not account for the large Chinese market opportunity however serves as good proxy.
+The market for stickers is substantial with total sales amounting to USD 765mln in FY 2017. 
 
 Company | Sales (USDmln) FY17
 ---|---
@@ -65,7 +65,7 @@ We definitely want to take the concept to the next level: Access the large messa
 
 We see the following factors as strong avenues for adoption and growth:
 
-:one: Create stickers that are backed by one NFT. This way, artists can generate license income from selling stickers.
+:one: Extend the platform: Stickers backed by one NFT can be sold in numerous copies, without transacting the NFT. This allows NFT owners to generate license income from selling stickers.
 
 :two: Gamify the cryptocollectible purchase experience: Sets need to include a minimum of ten stickers. This drives additional demand by collectors to fill gaps in their collections. In addition, Super-Sets would include rare collectibles and thus costs more than normal sets.
 
