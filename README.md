@@ -37,7 +37,7 @@ Kakao | 150
 
 Estimated transaction volumes for NFTs range from USD250mln to USD 500mln, adding up to a USD1bln market opportunity.
 
-_<sup>1</sup>WeChat sales volume estimated based on USD 1.7 (spend pa per MAU) x 1,000mln MAU x 20% conversion (MAU spending USD 1.7)._
+_<sup>1</sup>WeChat sales volume estimated based on USD 1.7 (spend pa per MAU) x 1,000mln MAU x 20% conversion._
 
 ## How we built it
 
