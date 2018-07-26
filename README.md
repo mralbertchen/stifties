@@ -87,13 +87,12 @@ yarn install
 yarn build
 yarn download_snapshot
 yarn ganache-cli
-
 ```
+
 In another terminal:
 ```
 cd stifties/api
 yarn start
-
 ```
 Finally, in the last terminal we launch the front-end:
 ```
