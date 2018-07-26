@@ -32,6 +32,7 @@ class App extends Component {
     // const address = await window.web3.eth
     //   .getAccounts()
     //   .then(accounts => accounts[0]);
+    // console.log(window.web3.eth.accounts);
     const address = await window.web3.eth.accounts[0];
 
     var data = JSON.stringify(false);

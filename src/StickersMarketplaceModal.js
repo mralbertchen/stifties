@@ -66,7 +66,7 @@ class StickersMarketplaceModal extends React.Component {
       },
       body: {
         orderId: order.orderId,
-        taker: "0x53F15Df0693f95B6ECC5bf400E45A912dAf08894"
+        taker: "0x6ecbe1db9ef729cbe972c83fb886247691fb6beb"
       },
       json: true
     };
@@ -85,7 +85,7 @@ class StickersMarketplaceModal extends React.Component {
     return (
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Get stickers</Modal.Title>
+          <Modal.Title>Get stifties</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Row>
