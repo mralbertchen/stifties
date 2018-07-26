@@ -4,7 +4,7 @@
 
 We want to bring the next billion consumers to the world of non-fungible token without them even noticing.
 
-STIFTIES is a marketplace for consumer to download stickers for social media and messaging apps, that are backed by NFTs. Consumers also have the possibility to purchase the NFT of a given sticker directly through the STIFTIES marketplace, by clicking on the sticker in the social media app.
+STIFTIES is a marketplace for consumer to download stickers for social media and messaging apps, that are backed by NFTs. 
 
 ## Inspiration - NIFTYs are made for play
 
@@ -12,15 +12,15 @@ The abundance of cryptocollectibles complicates the _discovery process_. _Engage
 
 People spend most of their time messaging on mobile devices, through text and video. Oftentimes, a picture says more than a thousand words having led to the emergence of a hugely profitable market for creating and selling digital stickers. These stickers are particularly prevalent across Asian-facing messaging apps such as Line, Kakao and WeChat. 
 
-Any collectible only has value if there is an interested audience. By tokenising stickers, STIFTIES creates a captive audience for cryptocollectibles, driving discoverability and engagement. The platform allows creators & collectors to receive recurring license income and capture full upside from price increases of a given collectible.
+Any collectible only has value if there is an interested audience. By tokenising stickers, STIFTIES creates a captive audience for cryptocollectibles, driving discoverability and engagement. 
 
 ## What it does - Turn any CryptoCollectible into a shareable digital sticker
 
-STIFTIES is an Ethereum-based platform that turns NFTs (ERC721) into stickers that can be sent to contacts via messaging apps. STIFTIES is a marketplace on which stickers can be downloaded for free or for a fee. Free stickers can be sponsored by third-party advertisers. In both cases, the proceeds flow to the NFT owner, subject to a platform fee.
+STIFTIES is an Ethereum-based platform that turns NFTs (ERC721) into stickers that can be sent to contacts via messaging apps. STIFTIES is a marketplace on which stickers can be transacted. 
 
 STIFTIES wants to capture as large a creator community as possible: Create stickers out of tokenised artwork and tokenize stickers of non-crypto content creators. 
 
-Consumers who interact with stickers can purchase the underlying NFT by clicking on the sticker. This connects to the Stifties marketplace.
+On the front-end it's a React chat-App that links to a node.js API back-end using 0x-Protocol to act as a relayer for the decentralised sticker market place. The stickers are represented on the blockchain using an ERC721 token. The prototype focuses
 
 ## Substantial market opportunity
 
@@ -49,8 +49,6 @@ In the beginning we wanted to deploy our own contract to the Kovan testnet but n
 
 All of this is very new and the documentation has been sparse. A lot of time was spent debugging smart contract transactions which usually do not return verbose and useful error messages. A lot of head-banging in the process of making sure every single argument passed in was watertight and done correctly. Good thing we had TypeScript and that made a lot of it explicit and caught many errors at build time.
 
-[0x/Toshi]
-
 ## Accomplishments that we're proud of
 
 We were able to get the app working properly on the Ethereum blockchain despite many hurdles. All the transactions during the demo will be real and verifiable on the local node.
@@ -67,12 +65,14 @@ We definitely want to take the concept to the next level: Access the large messa
 
 We see the following factors as strong avenues for adoption and growth:
 
-:one: Gamify the cryptocollectible purchase experience: Sets need to include a minimum of ten stickers. This drives additional demand by collectors to fill gaps in their collections. In addition, Super-Sets would include rare collectibles and thus costs more than normal sets.
+:one: Create stickers that are backed by one NFT. This way, artists can generate license income from selling stickers.
 
-:two: Launchpad for new collectible sales: Ability to showcase collectibles to a wide audience before launch of official sale. Turn into a distribution channel of choice for NFT creators.
+:two: Gamify the cryptocollectible purchase experience: Sets need to include a minimum of ten stickers. This drives additional demand by collectors to fill gaps in their collections. In addition, Super-Sets would include rare collectibles and thus costs more than normal sets.
 
-:three: Attract new creator to the Sticker economy: Content creator not only profit from recurring licensing income but also from a value increase of the NFT. This represents additional upside not available in the current sticker economy.
+:three: Launchpad for new collectible sales: Ability to showcase collectibles to a wide audience before launch of official sale. Turn into a distribution channel of choice for NFT creators.
 
-:four: Drive data analytics: Downloads and views give evidence about the popularity of a NFT-sticker which are relevant to the NFT investor community
+:four: Attract new creator to the Sticker economy: Content creator not only profit from recurring licensing income but also from a value increase of the NFT. This represents additional upside not available in the current sticker economy.
+
+:five: Drive data analytics: Downloads and views give evidence about the popularity of a NFT-sticker which are relevant to the NFT investor community
 
 ## To Start
