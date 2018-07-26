@@ -5,6 +5,7 @@ import { createOrder } from "./features/create_order";
 import { createTokens } from "./features/create_tokens";
 import { fillOrder } from "./features/fill_order";
 import { findERC721Owner } from "./print_utils";
+import { assert } from "chai";
 const bodyParser = require("body-parser");
 const express = require("express");
 const http = require("http");
@@ -55,6 +56,8 @@ app.post("/v0/fillorder/", async (req, res) => {
   const { orderId, taker } = req.body;
   console.log(`HTTP: POST fill order ${orderId}`);
   try {
+    assert(orderId, "There must be orderId");
+    assert(taker, "There must be a taker address");
     const orderIndex = orders.findIndex(obj => obj.orderId === orderId);
     const order = orders[orderIndex];
     if (!order) res.status(500).send("No such item");
