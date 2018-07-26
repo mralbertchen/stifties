@@ -47,7 +47,8 @@ app.post("/v0/order", (req, res) => {
 });
 
 app.get("/v0/portfolio/:address", async (req, res) => {
-  const { address } = req.params;
+  let { address } = req.params;
+  address = address.toLowerCase();
   console.log(`HTTP: GET portfolio with ${address}`);
   res.status(200).send(await renderPortfolio(address));
 });
