@@ -83,7 +83,7 @@ You would need 3 terminals as there would be 3 services running for this.
 
 In the first terminal:
 ```
-git clone https://github.com/achen27/stifties.git
+git clone https://github.com/mralbertchen/stifties.git
 cd stifties/api
 yarn install
 yarn build
